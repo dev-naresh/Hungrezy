@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A8BF311B29D4646600781178 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF311A29D4646600781178 /* AppDelegate.swift */; };
+		A8BF311D29D4646700781178 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8BF311C29D4646700781178 /* Assets.xcassets */; };
+		A8BF312029D4646700781178 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8BF311E29D4646700781178 /* MainMenu.xib */; };
+		A8BF312B29D4646700781178 /* HungrezyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF312A29D4646700781178 /* HungrezyTests.swift */; };
+		A8BF313529D4646700781178 /* HungrezyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF313429D4646700781178 /* HungrezyUITests.swift */; };
+		A8BF313729D4646700781178 /* HungrezyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF313629D4646700781178 /* HungrezyUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A8BF312729D4646700781178 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A8BF310F29D4646600781178 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A8BF311629D4646600781178;
+			remoteInfo = Hungrezy;
+		};
+		A8BF313129D4646700781178 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A8BF310F29D4646600781178 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A8BF311629D4646600781178;
+			remoteInfo = Hungrezy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A8BF311729D4646600781178 /* Hungrezy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hungrezy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8BF311A29D4646600781178 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A8BF311C29D4646700781178 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A8BF311F29D4646700781178 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A8BF312129D4646700781178 /* Hungrezy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hungrezy.entitlements; sourceTree = "<group>"; };
+		A8BF312629D4646700781178 /* HungrezyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HungrezyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8BF312A29D4646700781178 /* HungrezyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HungrezyTests.swift; sourceTree = "<group>"; };
+		A8BF313029D4646700781178 /* HungrezyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HungrezyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8BF313429D4646700781178 /* HungrezyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HungrezyUITests.swift; sourceTree = "<group>"; };
+		A8BF313629D4646700781178 /* HungrezyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HungrezyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A8BF311429D4646600781178 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8BF312329D4646700781178 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8BF312D29D4646700781178 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A8BF310E29D4646600781178 = {
+			isa = PBXGroup;
+			children = (
+				A8BF311929D4646600781178 /* Hungrezy */,
+				A8BF312929D4646700781178 /* HungrezyTests */,
+				A8BF313329D4646700781178 /* HungrezyUITests */,
+				A8BF311829D4646600781178 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A8BF311829D4646600781178 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A8BF311729D4646600781178 /* Hungrezy.app */,
+				A8BF312629D4646700781178 /* HungrezyTests.xctest */,
+				A8BF313029D4646700781178 /* HungrezyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A8BF311929D4646600781178 /* Hungrezy */ = {
+			isa = PBXGroup;
+			children = (
+				A8BF311A29D4646600781178 /* AppDelegate.swift */,
+				A8BF311C29D4646700781178 /* Assets.xcassets */,
+				A8BF311E29D4646700781178 /* MainMenu.xib */,
+				A8BF312129D4646700781178 /* Hungrezy.entitlements */,
+			);
+			path = Hungrezy;
+			sourceTree = "<group>";
+		};
+		A8BF312929D4646700781178 /* HungrezyTests */ = {
+			isa = PBXGroup;
+			children = (
+				A8BF312A29D4646700781178 /* HungrezyTests.swift */,
+			);
+			path = HungrezyTests;
+			sourceTree = "<group>";
+		};
+		A8BF313329D4646700781178 /* HungrezyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A8BF313429D4646700781178 /* HungrezyUITests.swift */,
+				A8BF313629D4646700781178 /* HungrezyUITestsLaunchTests.swift */,
+			);
+			path = HungrezyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A8BF311629D4646600781178 /* Hungrezy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8BF313A29D4646700781178 /* Build configuration list for PBXNativeTarget "Hungrezy" */;
+			buildPhases = (
+				A8BF311329D4646600781178 /* Sources */,
+				A8BF311429D4646600781178 /* Frameworks */,
+				A8BF311529D4646600781178 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Hungrezy;
+			productName = Hungrezy;
+			productReference = A8BF311729D4646600781178 /* Hungrezy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A8BF312529D4646700781178 /* HungrezyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8BF313D29D4646700781178 /* Build configuration list for PBXNativeTarget "HungrezyTests" */;
+			buildPhases = (
+				A8BF312229D4646700781178 /* Sources */,
+				A8BF312329D4646700781178 /* Frameworks */,
+				A8BF312429D4646700781178 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A8BF312829D4646700781178 /* PBXTargetDependency */,
+			);
+			name = HungrezyTests;
+			productName = HungrezyTests;
+			productReference = A8BF312629D4646700781178 /* HungrezyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A8BF312F29D4646700781178 /* HungrezyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8BF314029D4646700781178 /* Build configuration list for PBXNativeTarget "HungrezyUITests" */;
+			buildPhases = (
+				A8BF312C29D4646700781178 /* Sources */,
+				A8BF312D29D4646700781178 /* Frameworks */,
+				A8BF312E29D4646700781178 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A8BF313229D4646700781178 /* PBXTargetDependency */,
+			);
+			name = HungrezyUITests;
+			productName = HungrezyUITests;
+			productReference = A8BF313029D4646700781178 /* HungrezyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A8BF310F29D4646600781178 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					A8BF311629D4646600781178 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					A8BF312529D4646700781178 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = A8BF311629D4646600781178;
+					};
+					A8BF312F29D4646700781178 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = A8BF311629D4646600781178;
+					};
+				};
+			};
+			buildConfigurationList = A8BF311229D4646600781178 /* Build configuration list for PBXProject "Hungrezy" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A8BF310E29D4646600781178;
+			productRefGroup = A8BF311829D4646600781178 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A8BF311629D4646600781178 /* Hungrezy */,
+				A8BF312529D4646700781178 /* HungrezyTests */,
+				A8BF312F29D4646700781178 /* HungrezyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A8BF311529D4646600781178 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8BF311D29D4646700781178 /* Assets.xcassets in Resources */,
+				A8BF312029D4646700781178 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8BF312429D4646700781178 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8BF312E29D4646700781178 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A8BF311329D4646600781178 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8BF311B29D4646600781178 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8BF312229D4646700781178 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8BF312B29D4646700781178 /* HungrezyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8BF312C29D4646700781178 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8BF313729D4646700781178 /* HungrezyUITestsLaunchTests.swift in Sources */,
+				A8BF313529D4646700781178 /* HungrezyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A8BF312829D4646700781178 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A8BF311629D4646600781178 /* Hungrezy */;
+			targetProxy = A8BF312729D4646700781178 /* PBXContainerItemProxy */;
+		};
+		A8BF313229D4646700781178 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A8BF311629D4646600781178 /* Hungrezy */;
+			targetProxy = A8BF313129D4646700781178 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A8BF311E29D4646700781178 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A8BF311F29D4646700781178 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A8BF313829D4646700781178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A8BF313929D4646700781178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		A8BF313B29D4646700781178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hungrezy/Hungrezy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARNL96S4R;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = diwaan.Hungrezy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A8BF313C29D4646700781178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hungrezy/Hungrezy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARNL96S4R;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = diwaan.Hungrezy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A8BF313E29D4646700781178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARNL96S4R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = diwaan.HungrezyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hungrezy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hungrezy";
+			};
+			name = Debug;
+		};
+		A8BF313F29D4646700781178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARNL96S4R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = diwaan.HungrezyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hungrezy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hungrezy";
+			};
+			name = Release;
+		};
+		A8BF314129D4646700781178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARNL96S4R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = diwaan.HungrezyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Hungrezy;
+			};
+			name = Debug;
+		};
+		A8BF314229D4646700781178 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARNL96S4R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = diwaan.HungrezyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Hungrezy;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A8BF311229D4646600781178 /* Build configuration list for PBXProject "Hungrezy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8BF313829D4646700781178 /* Debug */,
+				A8BF313929D4646700781178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A8BF313A29D4646700781178 /* Build configuration list for PBXNativeTarget "Hungrezy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8BF313B29D4646700781178 /* Debug */,
+				A8BF313C29D4646700781178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A8BF313D29D4646700781178 /* Build configuration list for PBXNativeTarget "HungrezyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8BF313E29D4646700781178 /* Debug */,
+				A8BF313F29D4646700781178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A8BF314029D4646700781178 /* Build configuration list for PBXNativeTarget "HungrezyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8BF314129D4646700781178 /* Debug */,
+				A8BF314229D4646700781178 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A8BF310F29D4646600781178 /* Project object */;
+}
