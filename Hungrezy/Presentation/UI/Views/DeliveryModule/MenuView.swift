@@ -68,6 +68,14 @@ class MenuView : NSView {
 }
 
 extension MenuView : MenuViewContract {
+    func applyFiters(starRatingAbove: Float, isPureVegeterian: Bool, isChettinad: Bool, isChinese: Bool, isContinental: Bool, isIndian: Bool, isItalian: Bool, isBiryani: Bool, isStreetFood: Bool) {
+        foodListView.applyFilters(starRatingAbove: starRatingAbove, isPureVegeterian: isPureVegeterian, isChettinad: isChettinad, isChinese: isChinese, isContinental: isContinental, isIndian: isIndian, isItalian: isItalian, isBiryani: isBiryani, isStreetFood: isStreetFood)
+    }
+    
+    func applySorting(by sortingType: SortingType) {
+        foodListView.applySorting(by: sortingType)
+    }
+    
     func updateFoodsData(foods: [Food]) {
         foodListView.foods = foods
     }

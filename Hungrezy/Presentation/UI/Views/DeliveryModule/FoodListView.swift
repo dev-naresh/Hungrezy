@@ -15,13 +15,19 @@ class FoodListView : NSView {
         didSet {
             foodModels = []
             for food in foods {
-                let model = FoodModel(foodName: food.name, foodDescription: food.description, priceTag: food.price, foodImageUrl: food.imageURL, foodImage: nil, ratings: food.ratings, isVegetarian: food.isVegetarian, quantity: 0)
+                let model = FoodModel(foodName: food.name, foodDescription: food.description, priceTag: food.price, foodImageUrl: food.imageURL, foodImage: nil, ratings: food.ratings, cuisine: food.cuisine, isVegetarian: food.isVegetarian, quantity: 0)
                 foodModels.append(model)
             }
             tableView.reloadData()
         }
     }
-    var foodModels: [FoodModel] = []
+    var foodModels: [FoodModel] = [] {
+        didSet {
+            filteredFoodModels = foodModels
+        }
+    }
+    
+    var filteredFoodModels: [FoodModel] = []
 //    var foodImages: [Int : NSImage] = [:]
     
     override func draw(_ dirtyRect: NSRect) {
@@ -90,8 +96,9 @@ extension FoodListView : NSTableViewDelegate {
             cellView?.identifier = cellIdentifier
         }
         
-        if foodModels[row].foodImage == nil {
-            presenter.getFoodImageData(index: row, imageUrl: foodModels[row].foodImageUrl)
+        if filteredFoodModels[row].foodImage == nil {
+            presenter.getFoodImageData(index: row, imageUrl: filteredFoodModels[row].foodImageUrl)
+//            tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [0])
         }
         
 //            if let url = URL(string: foods[row].imageURL) {
@@ -114,7 +121,7 @@ extension FoodListView : NSTableViewDelegate {
 //                task.resume()
 //            }
         
-        cellView?.model = foodModels[row]
+        cellView?.model = filteredFoodModels[row]
         return cellView
     }
     
@@ -125,11 +132,74 @@ extension FoodListView : NSTableViewDelegate {
 
 extension FoodListView : NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return foods.count
+        return filteredFoodModels.count
     }
 }
 
 extension FoodListView : FoodListViewContract {
+    func applySorting(by sortingType: SortingType) {
+        switch sortingType {
+        case .PriceHighToLow:
+            filteredFoodModels = filteredFoodModels.sorted { $0.priceTag > $1.priceTag }
+        case .PriceLowToHigh:
+            filteredFoodModels = filteredFoodModels.sorted { $0.priceTag < $1.priceTag }
+        case .RatingHighToLow:
+            filteredFoodModels = filteredFoodModels.sorted { $0.ratings > $1.ratings }
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+    
+    func applyFilters(starRatingAbove ratings: Float = 0, isPureVegeterian: Bool = false, isChettinad: Bool = false, isChinese: Bool = false, isContinental: Bool = false, isIndian: Bool = false, isItalian: Bool = false, isBiryani: Bool = false, isStreetFood: Bool = false) {
+        
+        filteredFoodModels = []
+        for food in foodModels {
+            var cuisines: [String] = []
+            
+            if isChettinad {
+                cuisines.append("Chettinad")
+            }
+            
+            if isChinese {
+                cuisines.append("Chinese")
+            }
+            
+            if isContinental {
+                cuisines.append("Continental")
+            }
+            
+            if isIndian {
+                cuisines.append("Indian")
+            }
+            
+            if isItalian {
+                cuisines.append("Italian")
+            }
+            
+            if isBiryani {
+                cuisines.append("Biryani")
+            }
+            
+            if isStreetFood {
+                cuisines.append("Street Food")
+            }
+            
+            if food.ratings > ratings && (isPureVegeterian == false ? true : food.isVegetarian) {
+                for cuisine in cuisines {
+                    if food.cuisine.contains(cuisine) {
+                        filteredFoodModels.append(food)
+                        break
+                    }
+                }
+                if cuisines == [] {
+                    filteredFoodModels.append(food)
+                }
+            }
+        }
+        tableView.reloadData()
+    }
+    
     func updateCart() {
         var cartModels: [FoodModel] = []
         
@@ -141,43 +211,14 @@ extension FoodListView : FoodListViewContract {
         
         cartView?.foodModels = cartModels
     }
-    
-//    func addItemToCart(food: Food) {
-//        if ((cartView?.cart.contains(food)) == true) {
-//            let index = (cartView?.cart.firstIndex(of: food))!
-//            cartView?.quantity[index] += 1
-//
-//        } else {
-//            cartView?.cart.append(food)
-//            cartView?.quantity.append(1)
-//        }
-//        cartView?.tableView.reloadData()
-//        cartView?.updateCartTotal()
-//    }
-//
-//    func removeItemFromCart(food: Food) {
-//        if (cartView?.cart.contains(food) == true) {
-//            if let i = (cartView?.cart.firstIndex(of: food)) {
-//                let index: Int = cartView!.cart.distance(from: cartView!.cart.startIndex, to: i)
-//                print(index) // Prints 4
-//                cartView?.quantity[index] -= 1
-//                if cartView?.quantity[index] ?? -1 <= 0 {
-//                    cartView?.cart.remove(at: index)
-//                    cartView?.quantity.remove(at: index)
-//                }
-//            }
-//        }
-//        cartView?.tableView.reloadData()
-//        cartView?.updateCartTotal()
-//    }
-    
+        
     func updateImage(row: Int, imageData: Data) {
         guard let image = NSImage(data: imageData) else {
             print("Invalid image data")
             return
         }
-        self.foodModels[row].foodImage = image
-        self.foodModels[row].foodImage?.size = NSSize(width: 100, height: 75)
+        self.filteredFoodModels[row].foodImage = image
+        self.filteredFoodModels[row].foodImage?.size = NSSize(width: 100, height: 75)
         tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [0])
     }
 }

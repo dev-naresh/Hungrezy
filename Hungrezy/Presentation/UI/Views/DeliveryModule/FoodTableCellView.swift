@@ -14,6 +14,7 @@ protocol FoodModelContract {
     var foodImageUrl: String { get }
     var foodImage: NSImage? { get }
     var ratings: Float { get }
+    var cuisine: String { get }
     var isVegetarian: Bool { get }
     var quantity: Int { get set }
 }
@@ -25,16 +26,18 @@ class FoodModel: FoodModelContract {
     var foodImageUrl: String
     var foodImage: NSImage?
     var ratings: Float
+    var cuisine: String
     var isVegetarian: Bool
     var quantity: Int
     
-    init(foodName: String, foodDescription: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, ratings: Float, isVegetarian: Bool, quantity: Int) {
+    init(foodName: String, foodDescription: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, ratings: Float, cuisine: String, isVegetarian: Bool, quantity: Int) {
         self.foodName = foodName
         self.foodDescription = foodDescription
         self.priceTag = priceTag
         self.foodImageUrl = foodImageUrl
         self.foodImage = foodImage
         self.ratings = ratings
+        self.cuisine = cuisine
         self.isVegetarian = isVegetarian
         self.quantity = quantity
     }

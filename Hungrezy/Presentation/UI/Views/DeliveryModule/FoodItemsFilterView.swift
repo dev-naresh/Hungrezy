@@ -181,7 +181,7 @@ class FoodItemsFilterView : NSView {
         button.font = NSFont(name: "Optima", size: 14)
         button.title = "Rating: High to Low"
         button.target = self
-        button.action = #selector(filterAction)
+        button.action = #selector(sortAction)
         button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)
         return button
@@ -193,7 +193,7 @@ class FoodItemsFilterView : NSView {
         button.font = NSFont(name: "Optima", size: 14)
         button.title = "Price: Low to High"
         button.target = self
-        button.action = #selector(filterAction)
+        button.action = #selector(sortAction)
         button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)
         return button
@@ -205,7 +205,7 @@ class FoodItemsFilterView : NSView {
         button.font = NSFont(name: "Optima", size: 14)
         button.title = "Price: High to Low"
         button.target = self
-        button.action = #selector(filterAction)
+        button.action = #selector(sortAction)
         button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)
         return button
@@ -279,6 +279,16 @@ class FoodItemsFilterView : NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func sortAction() {
+        if ratingsHighToLow.state == .on {
+            (superview as? MenuView)?.presenter.applySorting(by: .RatingHighToLow)
+        } else if priceLowToHigh.state == .on {
+            (superview as? MenuView)?.presenter.applySorting(by: .PriceLowToHigh)
+        } else if priceHighToLow.state == .on {
+            (superview as? MenuView)?.presenter.applySorting(by: .PriceHighToLow)
+        }
+    }
+    
     @objc func filterAction() {
         
         if ratingsFilter.doubleValue == 3.0 {
@@ -287,66 +297,27 @@ class FoodItemsFilterView : NSView {
             starRatingFilterLabel.stringValue = "By star rating: \(ratingsFilter.doubleValue)+"
         }
         
-        var filters: [String] = []
-        
-        filters.append("restaurantID=\((superview as? MenuView)?.restaurant.id ?? "-1")")
-//        filters.append("(diningType=0 or diningType=2)")
+        var starRatingsAbove: Float = 0
         
         switch ratingsFilter.doubleValue {
         case 3.5:
-            filters.append("ratings>3.5")
+            starRatingsAbove = 3.5
         case 4.0:
-            filters.append("ratings>4.0")
+            starRatingsAbove = 4.0
         case 4.5:
-            filters.append("ratings>4.5")
+            starRatingsAbove = 4.5
         default:
             break
         }
-        
-        if chettinadCuisineCheckBox.state == .on {
-            filters.append("cuisine LIKE \"%Chettinad%\"")
-        }
-        
-        if chineseCuisineCheckBox.state == .on {
-            filters.append("cuisine LIKE \"%Chinese%\"")
-        }
-        
-        if continentalCuisineCheckBox.state == .on {
-            filters.append("cuisine LIKE \"%Continental%\"")
-        }
-        
-        if indianCuisineCheckBox.state == .on {
-            filters.append("cuisine LIKE \"%Indian%\"")
-        }
-        
-        if italianCuisineCheckBox.state == .on {
-            filters.append("cuisine LIKE \"%Italian%\"")
-        }
-        
-        if biryaniCuisineCheckBox.state == .on {
-            filters.append("cuisine LIKE \"%Biryani%\"")
-        }
-        
-        if streetFoodCuisineCheckBox.state == .on {
-            filters.append("cuisine LIKE \"%Street Food%\"")
-        }
-        
-        if pureVegCheckBox.state == .on {
-            filters.append("isVegetarian=\"true\"")
-        }
+                
+        (superview as? MenuView)?.presenter.applyFiters(starRatingAbove: starRatingsAbove, isPureVegeterian: pureVegCheckBox.state == .on, isChettinad: chettinadCuisineCheckBox.state == .on, isChinese: chineseCuisineCheckBox.state == .on, isContinental: continentalCuisineCheckBox.state == .on, isIndian: indianCuisineCheckBox.state == .on, isItalian: italianCuisineCheckBox.state == .on, isBiryani: biryaniCuisineCheckBox.state == .on, isStreetFood: streetFoodCuisineCheckBox.state == .on)
         
         if ratingsHighToLow.state == .on {
-            filters[filters.count - 1] += " order by ratings desc"
+            (superview as? MenuView)?.presenter.applySorting(by: .RatingHighToLow)
+        } else if priceLowToHigh.state == .on {
+            (superview as? MenuView)?.presenter.applySorting(by: .PriceLowToHigh)
+        } else if priceHighToLow.state == .on {
+            (superview as? MenuView)?.presenter.applySorting(by: .PriceHighToLow)
         }
-        
-        else if priceHighToLow.state == .on {
-            filters[filters.count - 1] += " order by price desc"
-        }
-        
-        else if priceLowToHigh.state == .on {
-            filters[filters.count - 1] += " order by price"
-        }
-        
-        (superview as? MenuView)?.presenter.getFoodsList(filters: filters)
     }
 }

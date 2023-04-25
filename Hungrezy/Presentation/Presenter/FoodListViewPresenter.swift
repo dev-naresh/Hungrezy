@@ -20,7 +20,7 @@ class FoodListViewPresenter {
         view?.updateImage(row: index, imageData: imageData)
     }
     
-    func getFoodListFailed(error: Error) {
+    func getFoodImageFailed(error: Error) {
         print(error)
     }
 }
@@ -31,7 +31,7 @@ extension FoodListViewPresenter : FoodListPresenterContract {
         getImage.execute(request: request, onSuccess: { [weak self] (response) in
             self?.getImageResult(index: index, imageData: response.imageData)
         }, onFailure: { [weak self] (error) in
-            self?.getFoodListFailed(error: error)
+            self?.getFoodImageFailed(error: error)
         })
     }
 }

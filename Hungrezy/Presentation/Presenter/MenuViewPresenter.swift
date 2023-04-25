@@ -26,6 +26,10 @@ class MenuViewPresenter {
 }
 
 extension MenuViewPresenter : MenuViewPresenterContract {
+    func applySorting(by sortingType: SortingType) {
+        view?.applySorting(by: sortingType)
+    }
+    
     func launchOrdersModule() {
         router?.launchOrdersModule()
     }
@@ -41,5 +45,9 @@ extension MenuViewPresenter : MenuViewPresenterContract {
         }, onFailure: { [weak self] (error) in
             self?.getFoodListFailed(error: error)
         })
+    }
+    
+    func applyFiters(starRatingAbove: Float, isPureVegeterian: Bool, isChettinad: Bool, isChinese: Bool, isContinental: Bool, isIndian: Bool, isItalian: Bool, isBiryani: Bool, isStreetFood: Bool) {
+        view?.applyFiters(starRatingAbove: starRatingAbove, isPureVegeterian: isPureVegeterian, isChettinad: isChettinad, isChinese: isChinese, isContinental: isContinental, isIndian: isIndian, isItalian: isItalian, isBiryani: isBiryani, isStreetFood: isStreetFood)
     }
 }
