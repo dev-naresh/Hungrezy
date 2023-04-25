@@ -8,6 +8,21 @@
 import Cocoa
 
 class RestaurantCollectionItemView : NSCollectionViewItem {
+    
+    override func mouseEntered(with event: NSEvent) {
+        view.layer?.cornerRadius = 8
+//        view.layer?.borderColor = NSColor.blue.cgColor
+        view.layer?.shadowColor = NSColor.gray.cgColor
+        view.layer?.shadowOpacity = 0.8
+        view.layer?.shadowOffset = CGSize(width: 0, height: -2)
+        view.layer?.shadowRadius = 3
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        view.layer?.shadowColor = .clear
+        view.layer?.shadowRadius = 2
+    }
+    
     lazy var restaurantName: NSTextField = {
         var field = NSTextField(labelWithString: "Restaurant Name")
         let fontDescriptor = NSFontDescriptor(name: "Optima", size: 16).withSymbolicTraits(.bold)
@@ -116,6 +131,7 @@ class RestaurantCollectionItemView : NSCollectionViewItem {
 
     override func loadView() {
         view = NSView()
+        view.wantsLayer = true
     }
     
     override func viewDidLoad() {

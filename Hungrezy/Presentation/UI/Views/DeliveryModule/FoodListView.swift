@@ -9,16 +9,20 @@ import Cocoa
 
 class FoodListView : NSView {
     weak var cartView: CartView?
+    var presenter: FoodListPresenterContract
     
     var foods: [Food] = [] {
         didSet {
+            foodModels = []
             for food in foods {
-                let model = FoodModel(foodName: food.name, foodDescription: food.description, priceTag: food.price, foodImage: <#T##NSImage#>, ratings: food.ratings, isVegetarian: food.isVegetarian, quantity: <#T##Int#>)
+                let model = FoodModel(foodName: food.name, foodDescription: food.description, priceTag: food.price, foodImageUrl: food.imageURL, foodImage: nil, ratings: food.ratings, isVegetarian: food.isVegetarian, quantity: 0)
+                foodModels.append(model)
             }
+            tableView.reloadData()
         }
     }
-    var models: [FoodModel] = []
-    var foodImages: [Int : NSImage] = [:]
+    var foodModels: [FoodModel] = []
+//    var foodImages: [Int : NSImage] = [:]
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -55,8 +59,9 @@ class FoodListView : NSView {
         return view
     }()
     
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
+    init(presenter: FoodListPresenterContract) {
+        self.presenter = presenter
+        super.init(frame: NSZeroRect)
         
 //        foods.append(Food(foodID: "101", restaurantID: "adfjawiefha", name: "rgjkbqrjgk", imageURL: "afkjb", description: "aigahfi", cuisine: "efawf", isVegetarian: true, price: 90, ratings: 3.8, ratingsCount: 890))
         
@@ -81,39 +86,35 @@ extension FoodListView : NSTableViewDelegate {
         
         if cellView == nil {
             cellView = FoodTableCellView()
+            cellView?.foodListView = self
             cellView?.identifier = cellIdentifier
         }
         
-        if self.foodImages[row] == nil {
-            if let url = URL(string: foods[row].imageURL) {
-                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                    guard let data = data, error == nil else {
-                        print("Error loading image: \(error?.localizedDescription ?? "unknown error")")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        guard let image = NSImage(data: data) else {
-                            print("Invalid image data")
-                            return
-                        }
-                        self.foodImages[row] = image
-                        self.foodImages[row]?.size = NSSize(width: 100, height: 75)
-                        tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [0])
-                        print(row)
-                    }
-                }
-                task.resume()
-            }
+        if foodModels[row].foodImage == nil {
+            presenter.getFoodImageData(index: row, imageUrl: foodModels[row].foodImageUrl)
         }
         
-        var quantity = 0
-        if (cartView?.cart.contains(foods[row]) == true) {
-            let index = (cartView?.cart.firstIndex(of: foods[row]))!
-            quantity = (cartView?.quantity[index])!
-        }
+//            if let url = URL(string: foods[row].imageURL) {
+//                let task = URLSession.shared.dataTask(with: url) { data, response, error in
+//
+//                    guard let data = data, error == nil else {
+//                        print("Error loading image: \(error?.localizedDescription ?? "unknown error")")
+//                        return
+//                    }
+//                    DispatchQueue.main.async {
+//                        guard let image = NSImage(data: data) else {
+//                            print("Invalid image data")
+//                            return
+//                        }
+//                        self.models[row].foodImage = image
+//                        self.models[row].foodImage?.size = NSSize(width: 100, height: 75)
+//                        tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [0])
+//                    }
+//                }
+//                task.resume()
+//            }
         
-        
-        cellView?.model = models[row]
+        cellView?.model = foodModels[row]
         return cellView
     }
     
@@ -128,33 +129,55 @@ extension FoodListView : NSTableViewDataSource {
     }
 }
 
-extension FoodListView {
-    func addItemToCart(food: Food) {
-        if ((cartView?.cart.contains(food)) == true) {
-            let index = (cartView?.cart.firstIndex(of: food))!
-            cartView?.quantity[index] += 1
-            
-        } else {
-            cartView?.cart.append(food)
-            cartView?.quantity.append(1)
-        }
-        cartView?.tableView.reloadData()
-        cartView?.updateCartTotal()
-    }
-    
-    func removeItemFromCart(food: Food) {
-        if (cartView?.cart.contains(food) == true) {
-            if let i = (cartView?.cart.firstIndex(of: food)) {
-                let index: Int = cartView!.cart.distance(from: cartView!.cart.startIndex, to: i)
-                print(index) // Prints 4
-                cartView?.quantity[index] -= 1
-                if cartView?.quantity[index] ?? -1 <= 0 {
-                    cartView?.cart.remove(at: index)
-                    cartView?.quantity.remove(at: index)
-                }
+extension FoodListView : FoodListViewContract {
+    func updateCart() {
+        var cartModels: [FoodModel] = []
+        
+        for foodModel in foodModels {
+            if foodModel.quantity > 0 {
+                cartModels.append(foodModel)
             }
         }
-        cartView?.tableView.reloadData()
-        cartView?.updateCartTotal()
+        
+        cartView?.foodModels = cartModels
+    }
+    
+//    func addItemToCart(food: Food) {
+//        if ((cartView?.cart.contains(food)) == true) {
+//            let index = (cartView?.cart.firstIndex(of: food))!
+//            cartView?.quantity[index] += 1
+//
+//        } else {
+//            cartView?.cart.append(food)
+//            cartView?.quantity.append(1)
+//        }
+//        cartView?.tableView.reloadData()
+//        cartView?.updateCartTotal()
+//    }
+//
+//    func removeItemFromCart(food: Food) {
+//        if (cartView?.cart.contains(food) == true) {
+//            if let i = (cartView?.cart.firstIndex(of: food)) {
+//                let index: Int = cartView!.cart.distance(from: cartView!.cart.startIndex, to: i)
+//                print(index) // Prints 4
+//                cartView?.quantity[index] -= 1
+//                if cartView?.quantity[index] ?? -1 <= 0 {
+//                    cartView?.cart.remove(at: index)
+//                    cartView?.quantity.remove(at: index)
+//                }
+//            }
+//        }
+//        cartView?.tableView.reloadData()
+//        cartView?.updateCartTotal()
+//    }
+    
+    func updateImage(row: Int, imageData: Data) {
+        guard let image = NSImage(data: imageData) else {
+            print("Invalid image data")
+            return
+        }
+        self.foodModels[row].foodImage = image
+        self.foodModels[row].foodImage?.size = NSSize(width: 100, height: 75)
+        tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [0])
     }
 }

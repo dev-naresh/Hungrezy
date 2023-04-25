@@ -34,6 +34,21 @@ class FoodDataDatabaseService {
 }
 
 extension FoodDataDatabaseService : FoodDataDatabaseContract {
+    func truncateTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void) {
+        var statement: OpaquePointer?
+        let query = "delete from Food;"
+        if sqlite3_prepare(DB, query, -1, &statement, nil) == SQLITE_OK {
+            if sqlite3_step(statement) == SQLITE_DONE{
+                success("Table truncated")
+            } else {
+                failure("Failed to truncate")
+            }
+        } else {
+            failure("Failed to truncate")
+        }
+        sqlite3_finalize(statement)
+    }
+    
     func createFoodTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void) {
         var statement: OpaquePointer?
         let query = "CREATE TABLE if not exists Food ( foodID TEXT, restaurantID TEXT, name TEXT,  imageURL TEXT, description TEXT, cuisine TEXT, isVegetarian BOOL, price INTEGER, ratings REAL, ratingsCount INTEGER );"
@@ -72,34 +87,32 @@ extension FoodDataDatabaseService : FoodDataDatabaseContract {
         print(query)
         var foods: [Food] = []
         if sqlite3_prepare(DB, query, -1, &statement, nil) == SQLITE_OK{
-//            DispatchQueue.main.async {
-                while sqlite3_step(statement) == SQLITE_ROW {
-                    let foodID = String(cString: sqlite3_column_text(statement, 0))
-                    let restaurantID = String(cString: sqlite3_column_text(statement, 1))
-                    let name = String(cString: sqlite3_column_text(statement, 2))
-                    let imageURL = String(cString: sqlite3_column_text(statement, 3))
-                    let description = String(cString: sqlite3_column_text(statement, 4))
-                    let cuisine = String(cString: sqlite3_column_text(statement, 5))
-                    let isVegetarianString = String(cString: sqlite3_column_text(statement, 6))
-                    let price = sqlite3_column_int(statement, 7)
-                    let ratings = sqlite3_column_double(statement, 8)
-                    let ratingsCount = sqlite3_column_int(statement, 9)
-                    
-                    var isVegetarian: Bool
-                    switch isVegetarianString {
-                    case "true":
-                        isVegetarian = true
-                    case "false":
-                        isVegetarian = false
-                    default:
-                        isVegetarian = false
-                    }
-
-                    let food = Food(foodID: foodID, restaurantID: restaurantID, name: name, imageURL: imageURL, description: description, cuisine: cuisine, isVegetarian: isVegetarian, price: Int(price), ratings: Float(ratings), ratingsCount: Int(ratingsCount))
-                    
-                    foods.append(food)
+            while sqlite3_step(statement) == SQLITE_ROW {
+                let foodID = String(cString: sqlite3_column_text(statement, 0))
+                let restaurantID = String(cString: sqlite3_column_text(statement, 1))
+                let name = String(cString: sqlite3_column_text(statement, 2))
+                let imageURL = String(cString: sqlite3_column_text(statement, 3))
+                let description = String(cString: sqlite3_column_text(statement, 4))
+                let cuisine = String(cString: sqlite3_column_text(statement, 5))
+                let isVegetarianString = String(cString: sqlite3_column_text(statement, 6))
+                let price = sqlite3_column_int(statement, 7)
+                let ratings = sqlite3_column_double(statement, 8)
+                let ratingsCount = sqlite3_column_int(statement, 9)
+                
+                var isVegetarian: Bool
+                switch isVegetarianString {
+                case "true":
+                    isVegetarian = true
+                case "false":
+                    isVegetarian = false
+                default:
+                    isVegetarian = false
                 }
-//            }
+
+                let food = Food(foodID: foodID, restaurantID: restaurantID, name: name, imageURL: imageURL, description: description, cuisine: cuisine, isVegetarian: isVegetarian, price: Int(price), ratings: Float(ratings), ratingsCount: Int(ratingsCount))
+                
+                foods.append(food)
+            }
             success(foods)
         } else {
             failure("Failed to fetch data")

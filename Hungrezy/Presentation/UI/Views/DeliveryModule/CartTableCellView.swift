@@ -7,7 +7,51 @@
 
 import Cocoa
 
+protocol CartModelContract {
+    var foodName: String { get }
+    var priceTag: Int { get }
+    var foodImageUrl: String { get }
+    var foodImage: NSImage? { get }
+    var isVegetarian: Bool { get }
+    var quantity: Int { get set }
+}
+
+class CartModel: CartModelContract {
+    var foodName: String
+    var priceTag: Int
+    var foodImageUrl: String
+    var foodImage: NSImage?
+    var isVegetarian: Bool
+    var quantity: Int
+    
+    init(foodName: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, isVegetarian: Bool, quantity: Int) {
+        self.foodName = foodName
+        self.priceTag = priceTag
+        self.foodImageUrl = foodImageUrl
+        self.foodImage = foodImage
+        self.isVegetarian = isVegetarian
+        self.quantity = quantity
+    }
+}
+
 class CartTableCellView: NSTableCellView {
+    var cartModel: CartModelContract? {
+        didSet {
+            if let model = cartModel {
+                foodName.stringValue = model.foodName
+                priceTag.stringValue = "₹ \(model.priceTag).00"
+                quantityField.stringValue = "Quantity: \(model.quantity)"
+                itemTotal.stringValue = "₹ \(model.quantity * model.priceTag).00"
+                
+                if model.isVegetarian {
+                    vegOrNonVegMark.contentTintColor = .systemGreen
+                } else {
+                    vegOrNonVegMark.contentTintColor = .red
+                }
+            }
+        }
+    }
+    
     lazy var foodName: NSTextField = {
         let view = NSTextField()
         view.isEditable = false
@@ -70,20 +114,6 @@ class CartTableCellView: NSTableCellView {
         addSubview(view)
         return view
     }()
-    
-    func addValues(food: Food, quantity: Int, cartView: CartView) {
-        self.foodName.stringValue = food.name
-        self.priceTag.stringValue = "₹ \(food.price).00"
-//        self.foodImage.image = foodImage
-        self.quantityField.stringValue = "Quantity: \(quantity)"
-        self.itemTotal.stringValue = "₹ \(food.price * quantity).00"
-        
-        if food.isVegetarian {
-            vegOrNonVegMark.contentTintColor = .systemGreen
-        } else {
-            vegOrNonVegMark.contentTintColor = .red
-        }
-    }
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

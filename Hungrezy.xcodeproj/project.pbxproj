@@ -22,6 +22,15 @@
 		A82F581329E17D7200811E04 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82F581229E17D7200811E04 /* Restaurant.swift */; };
 		A82F581529E17DEE00811E04 /* DiningType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82F581429E17DEE00811E04 /* DiningType.swift */; };
 		A82F581729E187A200811E04 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82F581629E187A200811E04 /* Address.swift */; };
+		A830936A29F654C500DFCEF9 /* GetImageNetworkSerivce.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830936929F654C500DFCEF9 /* GetImageNetworkSerivce.swift */; };
+		A830936C29F654FA00DFCEF9 /* GetImageNetworkContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830936B29F654FA00DFCEF9 /* GetImageNetworkContract.swift */; };
+		A830936E29F65A7A00DFCEF9 /* GetImageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830936D29F65A7A00DFCEF9 /* GetImageDataManager.swift */; };
+		A830937029F65AF000DFCEF9 /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830936F29F65AF000DFCEF9 /* GetImage.swift */; };
+		A830937229F65BCD00DFCEF9 /* GetImageContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830937129F65BCD00DFCEF9 /* GetImageContract.swift */; };
+		A830937429F666F200DFCEF9 /* FoodListViewContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830937329F666F200DFCEF9 /* FoodListViewContract.swift */; };
+		A830937629F666FA00DFCEF9 /* FoodListPresenterContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830937529F666FA00DFCEF9 /* FoodListPresenterContract.swift */; };
+		A830937829F6670900DFCEF9 /* FoodListRouterContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830937729F6670900DFCEF9 /* FoodListRouterContract.swift */; };
+		A830937A29F66DD000DFCEF9 /* FoodListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830937929F66DD000DFCEF9 /* FoodListViewPresenter.swift */; };
 		A85A059B29EFBA1E00933E19 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A059A29EFBA1E00933E19 /* Order.swift */; };
 		A85A059D29EFC78A00933E19 /* OrdersDataNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A059C29EFC78A00933E19 /* OrdersDataNetworkService.swift */; };
 		A85A059F29EFCED800933E19 /* OrdersDataDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A059E29EFCED800933E19 /* OrdersDataDatabaseService.swift */; };
@@ -157,6 +166,15 @@
 		A82F581229E17D7200811E04 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		A82F581429E17DEE00811E04 /* DiningType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningType.swift; sourceTree = "<group>"; };
 		A82F581629E187A200811E04 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		A830936929F654C500DFCEF9 /* GetImageNetworkSerivce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageNetworkSerivce.swift; sourceTree = "<group>"; };
+		A830936B29F654FA00DFCEF9 /* GetImageNetworkContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageNetworkContract.swift; sourceTree = "<group>"; };
+		A830936D29F65A7A00DFCEF9 /* GetImageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageDataManager.swift; sourceTree = "<group>"; };
+		A830936F29F65AF000DFCEF9 /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
+		A830937129F65BCD00DFCEF9 /* GetImageContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageContract.swift; sourceTree = "<group>"; };
+		A830937329F666F200DFCEF9 /* FoodListViewContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListViewContract.swift; sourceTree = "<group>"; };
+		A830937529F666FA00DFCEF9 /* FoodListPresenterContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListPresenterContract.swift; sourceTree = "<group>"; };
+		A830937729F6670900DFCEF9 /* FoodListRouterContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListRouterContract.swift; sourceTree = "<group>"; };
+		A830937929F66DD000DFCEF9 /* FoodListViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListViewPresenter.swift; sourceTree = "<group>"; };
 		A85A059A29EFBA1E00933E19 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		A85A059C29EFC78A00933E19 /* OrdersDataNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersDataNetworkService.swift; sourceTree = "<group>"; };
 		A85A059E29EFCED800933E19 /* OrdersDataDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersDataDatabaseService.swift; sourceTree = "<group>"; };
@@ -442,6 +460,7 @@
 				A800CD0A29E3F6F300901C5E /* RestaurantDataManager.swift */,
 				A8ADAECB29E82716009C3F90 /* FoodDataManager.swift */,
 				A85A05A029EFF56D00933E19 /* OrdersDataManager.swift */,
+				A830936D29F65A7A00DFCEF9 /* GetImageDataManager.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -464,6 +483,7 @@
 				A82F580E29E17C2200811E04 /* RestaurantDataNetworkService.swift */,
 				A8ADAEC929E81904009C3F90 /* FoodDataNetworkService.swift */,
 				A85A059C29EFC78A00933E19 /* OrdersDataNetworkService.swift */,
+				A830936929F654C500DFCEF9 /* GetImageNetworkSerivce.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -480,6 +500,7 @@
 				A85A05A429EFF8F400933E19 /* AddOrder.swift */,
 				A85A05A629EFFA1B00933E19 /* FetchUserOrders.swift */,
 				A85A05A829EFFA2600933E19 /* FetchRestaurantOrders.swift */,
+				A830936F29F65AF000DFCEF9 /* GetImage.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -511,6 +532,7 @@
 				A85A05A229EFF8C400933E19 /* AddOrderContract.swift */,
 				A85A05AA29EFFA8A00933E19 /* FetchUserOrdersContract.swift */,
 				A85A05AC29EFFA9800933E19 /* FetchRestaurantOrdersContract.swift */,
+				A830937129F65BCD00DFCEF9 /* GetImageContract.swift */,
 			);
 			path = Contract;
 			sourceTree = "<group>";
@@ -526,6 +548,7 @@
 				A8ADAEC329E80A50009C3F90 /* FoodDataDatabaseContract.swift */,
 				A896B90329EFB5E2008C973D /* OrdersDataNetworkContract.swift */,
 				A896B90529EFB5EF008C973D /* OrdersDataDatabaseContract.swift */,
+				A830936B29F654FA00DFCEF9 /* GetImageNetworkContract.swift */,
 			);
 			path = Contract;
 			sourceTree = "<group>";
@@ -560,6 +583,7 @@
 				A8F80AC229E01E1B00C62B80 /* ProfileViewPresenter.swift */,
 				A8ADAEAB29E53921009C3F90 /* AddRestaurantFormPresenter.swift */,
 				A896B8EF29ED187F008C973D /* MenuViewPresenter.swift */,
+				A830937929F66DD000DFCEF9 /* FoodListViewPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -587,6 +611,9 @@
 				A896B8F329ED4C74008C973D /* MenuViewContract.swift */,
 				A896B8F529ED4C80008C973D /* MenuViewPresenterContract.swift */,
 				A896B8F729ED4C89008C973D /* MenuViewRouterContract.swift */,
+				A830937329F666F200DFCEF9 /* FoodListViewContract.swift */,
+				A830937529F666FA00DFCEF9 /* FoodListPresenterContract.swift */,
+				A830937729F6670900DFCEF9 /* FoodListRouterContract.swift */,
 			);
 			path = Contract;
 			sourceTree = "<group>";
@@ -773,6 +800,7 @@
 				A8F80AB729DFF39700C62B80 /* DeliveryViewPresenterContract.swift in Sources */,
 				A8F80AA329DFDDFC00C62B80 /* ModuleViewContract.swift in Sources */,
 				A8F80AA929DFE43C00C62B80 /* DeliveryView.swift in Sources */,
+				A830937429F666F200DFCEF9 /* FoodListViewContract.swift in Sources */,
 				A8ADAEAE29E53962009C3F90 /* AddRestaurantFormPresenterContract.swift in Sources */,
 				A8724E9629D88B2F002C8369 /* AuthenticateUser.swift in Sources */,
 				A8724E9829D88C87002C8369 /* AuthenticateUserContract.swift in Sources */,
@@ -799,13 +827,16 @@
 				A8BF317329D56A2400781178 /* AuthenticationPageImageView.swift in Sources */,
 				A8ADAEAA29E52858009C3F90 /* ToolBarRouterContract.swift in Sources */,
 				A896B8F229ED1CC1008C973D /* FoodTableCellView.swift in Sources */,
+				A830937629F666FA00DFCEF9 /* FoodListPresenterContract.swift in Sources */,
 				A8F80AA129DFD80A00C62B80 /* ModulePresenter.swift in Sources */,
+				A830936E29F65A7A00DFCEF9 /* GetImageDataManager.swift in Sources */,
 				A8BF317529D56C4A00781178 /* SignUpFormView.swift in Sources */,
 				A8ADAED429E82999009C3F90 /* GetFoodList.swift in Sources */,
 				A896B8F429ED4C74008C973D /* MenuViewContract.swift in Sources */,
 				A896B8FA29ED77AB008C973D /* CartView.swift in Sources */,
 				A8F80AC329E01E1B00C62B80 /* ProfileViewPresenter.swift in Sources */,
 				A8724E9A29D89844002C8369 /* LogInFormView.swift in Sources */,
+				A830937229F65BCD00DFCEF9 /* GetImageContract.swift in Sources */,
 				A896B8FE29EEA6FF008C973D /* CartTotalView.swift in Sources */,
 				A800CD0929E3D0B400901C5E /* RestaurantDatabaseService.swift in Sources */,
 				A8F80A5E29DE943200C62B80 /* HomeViewRouterContract.swift in Sources */,
@@ -822,6 +853,7 @@
 				A8F80ABF29E01A0200C62B80 /* ProfileViewPresenterContract.swift in Sources */,
 				A8F80ABD29E019F800C62B80 /* ProfileViewContract.swift in Sources */,
 				A8BF316A29D561BA00781178 /* AuthenticationPresenter.swift in Sources */,
+				A830937A29F66DD000DFCEF9 /* FoodListViewPresenter.swift in Sources */,
 				A8ADAEC829E80D0B009C3F90 /* FoodDataDatabaseService.swift in Sources */,
 				A8ADAEB529E5469B009C3F90 /* Formatter.swift in Sources */,
 				A800CD0F29E3F88300901C5E /* GetRestaurantListContract.swift in Sources */,
@@ -830,9 +862,12 @@
 				A8BF316029D55B8800781178 /* Assembler.swift in Sources */,
 				A8BF315229D4A3F700781178 /* UserAccountDatabaseContract.swift in Sources */,
 				A8BF315829D54A2400781178 /* AddUserContract.swift in Sources */,
+				A830936A29F654C500DFCEF9 /* GetImageNetworkSerivce.swift in Sources */,
+				A830937829F6670900DFCEF9 /* FoodListRouterContract.swift in Sources */,
 				A800CD1D29E42D9000901C5E /* CustomTextField.swift in Sources */,
 				A85A05AD29EFFA9800933E19 /* FetchRestaurantOrdersContract.swift in Sources */,
 				A8BF314F29D4996900781178 /* UserAccountDatabaseService.swift in Sources */,
+				A830937029F65AF000DFCEF9 /* GetImage.swift in Sources */,
 				A8ADAECA29E81904009C3F90 /* FoodDataNetworkService.swift in Sources */,
 				A8BF316C29D561CC00781178 /* AuthenticationView.swift in Sources */,
 				A85A059B29EFBA1E00933E19 /* Order.swift in Sources */,
@@ -841,6 +876,7 @@
 				A8F80AAF29DFE45D00C62B80 /* OrdersView.swift in Sources */,
 				A8F80AC129E01A1400C62B80 /* ProfileViewRouterContract.swift in Sources */,
 				A85A05AB29EFFA8A00933E19 /* FetchUserOrdersContract.swift in Sources */,
+				A830936C29F654FA00DFCEF9 /* GetImageNetworkContract.swift in Sources */,
 				A8F80A9F29DFD30E00C62B80 /* ModulePresenterContract.swift in Sources */,
 				A8ADAEC429E80A50009C3F90 /* FoodDataDatabaseContract.swift in Sources */,
 				A8BF316829D55EB800781178 /* UserAccountNetworkService.swift in Sources */,

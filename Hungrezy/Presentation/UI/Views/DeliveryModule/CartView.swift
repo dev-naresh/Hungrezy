@@ -10,8 +10,30 @@ import LocalAuthentication
 
 class CartView : NSView {
     weak var foodListView: FoodListView?
-    var cart: [Food] = []
-    var quantity: [Int] = []
+    
+    var foodModels: [FoodModel] = [] {
+        didSet {
+            cartModels = []
+            for foodModel in foodModels {
+                let foodName = foodModel.foodName
+                let priceTag = foodModel.priceTag
+                let foodImageUrl = foodModel.foodImageUrl
+                let foodImage = foodModel.foodImage
+                let isVegeterian = foodModel.isVegetarian
+                let quantity = foodModel.quantity
+                
+                let cartModel = CartModel(foodName: foodName, priceTag: priceTag, foodImageUrl: foodImageUrl, foodImage: foodImage, isVegetarian: isVegeterian, quantity: quantity)
+                cartModels.append(cartModel)
+            }
+            tableView.reloadData()
+        }
+    }
+    
+    var cartModels: [CartModel] = [] {
+        didSet {
+            updateCartTotal()
+        }
+    }
     var restaurant: Restaurant
     
     lazy var restaurantLabel: NSTextField = {
@@ -108,9 +130,9 @@ class CartView : NSView {
     func updateCartTotal() {
         var cartTotal = 0
         var quantityTotal = 0
-        for i in 0..<cart.count {
-            cartTotal += (cart[i].price * quantity[i])
-            quantityTotal += quantity[i]
+        for i in 0..<cartModels.count {
+            cartTotal += (cartModels[i].priceTag * cartModels[i].quantity)
+            quantityTotal += cartModels[i].quantity
         }
         let tax: Int = Int(0.05 * Double(cartTotal))
         let packingFee = quantityTotal * 10
@@ -178,7 +200,7 @@ extension CartView: NSTableViewDelegate {
             cellView?.identifier = cellIdentifier
         }
         
-        cellView?.addValues(food: cart[row], quantity: quantity[row], cartView: self)
+        cellView?.cartModel = cartModels[row]
         return cellView
     }
     
@@ -189,7 +211,7 @@ extension CartView: NSTableViewDelegate {
 
 extension CartView: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return cart.count
+        return cartModels.count
     }
 }
 
@@ -199,11 +221,11 @@ extension CartView {
         var error: NSError?
 
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Pay using Apple Pay") { (success, error) in
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Pay using Apple Pay") { [weak self] (success, error) in
                 if success {
                     print("Authentication succeeded")
                     DispatchQueue.main.async {
-                        (self.superview as? MenuView)?.presenter.launchOrdersModule()
+                        (self?.superview as? MenuView)?.presenter.launchOrdersModule()
                     }
                 } else {
                     print("Authentication failed: \(error?.localizedDescription ?? "Unknown error")")

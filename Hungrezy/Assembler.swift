@@ -109,7 +109,11 @@ class Assembler {
         let useCase = getGetFoodListUseCase()
         let presenter = MenuViewPresenter(getFoodList: useCase)
         presenter.router = router
-        let view = MenuView(restaurant: restaurant, presenter: presenter)
+        
+        let foodListView = getFoodListView(router: router as! Router)
+        let view = MenuView(restaurant: restaurant, foodListView: foodListView, presenter: presenter)
+        
+        view.foodListView = foodListView
         view.presenter = presenter
         presenter.view = view
         return view
@@ -120,6 +124,23 @@ class Assembler {
         let network = FoodDataNetworkService()
         let dataManager = FoodDataManager(database: database, network: network)
         let useCase = GetFoodList(dataManager: dataManager)
+        return useCase
+    }
+    
+    static func getFoodListView(router: FoodListRouterContract) -> FoodListView {
+        let useCase = getGetImageUseCase()
+        let presenter = FoodListViewPresenter(getImage: useCase)
+        presenter.router = router
+        let view = FoodListView(presenter: presenter)
+        view.presenter = presenter
+        presenter.view = view
+        return view
+    }
+    
+    private static func getGetImageUseCase() -> GetImage {
+        let network = GetImageNetworkSerivce()
+        let dataManager = GetImageDataManager(network: network)
+        let useCase = GetImage(dataManager: dataManager)
         return useCase
     }
 }

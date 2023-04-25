@@ -20,6 +20,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         router = Router(window: window)
         router?.launchAuthenticationView()
         
+//        network.getImage(from: "https://cocoacasts.s3.amazonaws.com/what-is-fatalerror-in-sift-and-when-to-use-it/figure-fatalerror-swift-1.jpg", success: { (data) in
+//            print(data)
+//        }, failure: { (error) in
+//            print(error)
+//        })
+        
 //        window.contentView = MapView()
         
 //        var database = OrdersDataDatabaseService()

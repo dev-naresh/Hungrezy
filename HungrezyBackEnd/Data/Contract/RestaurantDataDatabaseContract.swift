@@ -11,4 +11,5 @@ protocol RestaurantDataDatabaseContract {
     func createRestaurantTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void)
     func insertIntoRestaurantTable(restaurant: Restaurant, success: @escaping (Restaurant) -> Void, failure: @escaping (String) -> Void)
     func fetchRestaurants(filters: [String], success: @escaping ([Restaurant]) -> Void, failure: @escaping (String) -> Void)
+    func truncateTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void)
 }

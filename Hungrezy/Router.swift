@@ -143,3 +143,7 @@ extension Router: MenuViewRouterContract {
         homeView?.setConstrints()
     }
 }
+
+extension Router: FoodListRouterContract {
+    
+}

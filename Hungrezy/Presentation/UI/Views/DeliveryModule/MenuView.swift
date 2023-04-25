@@ -18,13 +18,7 @@ class MenuView : NSView {
         return view
     }()
     
-    lazy var foodListView: FoodListView = {
-        var view = FoodListView()
-        view.cartView = self.cartView
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        return view
-    }()
+    var foodListView: FoodListView
     
     lazy var cartView: CartView = {
         var view = CartView(restaurant: restaurant)
@@ -34,11 +28,15 @@ class MenuView : NSView {
         return view
     }()
     
-    init(restaurant: Restaurant, presenter: MenuViewPresenter) {
+    init(restaurant: Restaurant, foodListView: FoodListView, presenter: MenuViewPresenter) {
+        self.foodListView = foodListView
         self.presenter = presenter
         self.restaurant = restaurant
         super.init(frame: NSZeroRect)
         
+        foodListView.cartView = self.cartView
+        foodListView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(foodListView)
         presenter.getFoodsList(filters: ["restaurantID=\(restaurant.id)"])
 //        getRestaurantsList(filters: ["city=\"Chennai\""])
         
@@ -72,8 +70,5 @@ class MenuView : NSView {
 extension MenuView : MenuViewContract {
     func updateFoodsData(foods: [Food]) {
         foodListView.foods = foods
-        foodListView.foodImages = [:]
-        foodListView.tableView.reloadData()
-        print("Food data updated")
     }
 }

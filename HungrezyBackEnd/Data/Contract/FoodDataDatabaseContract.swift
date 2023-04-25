@@ -11,4 +11,5 @@ protocol FoodDataDatabaseContract {
     func createFoodTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void)
     func insertIntoFoodTable(food: Food, success: @escaping (Food) -> Void, failure: @escaping (String) -> Void)
     func fetchFood(filters: [String], success: @escaping ([Food]) -> Void, failure: @escaping (String) -> Void)
+    func truncateTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void)
 }

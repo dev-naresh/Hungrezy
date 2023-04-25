@@ -73,6 +73,11 @@ extension DeliveryRestaurantView : NSCollectionViewDelegate {
 //        (superview as? DeliveryView)?.presenter.getFoodsList(filters: ["restaurantID=\(restaurants[indexPaths.first![1]].id)"])
         (superview as? DeliveryView)?.presenter.getMenuView(restaurant: restaurants[indexPaths.first![1]])
     }
+    
+    func collectionView(_ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem, forRepresentedObjectAt indexPath: IndexPath) {
+        let trackingArea = NSTrackingArea(rect: item.view.bounds, options: [.mouseEnteredAndExited, .activeInKeyWindow], owner: item, userInfo: nil)
+        item.view.addTrackingArea(trackingArea)
+    }
 }
 
 extension DeliveryRestaurantView : NSCollectionViewDataSource {

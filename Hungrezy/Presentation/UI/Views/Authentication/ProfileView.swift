@@ -11,7 +11,7 @@ class ProfileView: NSView {
     var presenter: ProfileViewPresenterContract
     let name: String
     let mailID: String
-    
+
     lazy var profilePicture: NSImageView = {
         var imageView = NSImageView()
         var image = NSImage(systemSymbolName: "person", accessibilityDescription: nil)

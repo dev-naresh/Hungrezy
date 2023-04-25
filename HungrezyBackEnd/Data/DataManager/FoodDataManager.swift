@@ -65,12 +65,10 @@ extension FoodDataManager : AddFoodContract {
 
 extension FoodDataManager : GetFoodListContract {
     func getFoodList(filters: [String], success: @escaping ([Food]) -> Void, failure: @escaping (GetFoodListError) -> Void) {
-        DispatchQueue.main.async {
-            self.database.fetchFood(filters: filters, success: { [weak self] (foods) in
-                self?.success(foods: foods, callback: success)
-            }, failure: { [weak self] (message) in
-                self?.failure(message: message, callback: failure)
-            })
-        }
+        self.database.fetchFood(filters: filters, success: { [weak self] (foods) in
+            self?.success(foods: foods, callback: success)
+        }, failure: { [weak self] (message) in
+            self?.failure(message: message, callback: failure)
+        })
     }
 }

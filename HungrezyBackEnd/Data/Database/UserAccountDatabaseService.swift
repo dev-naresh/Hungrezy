@@ -37,7 +37,7 @@ class UserAccountDatabaseService {
 extension UserAccountDatabaseService: UserAccountDatabaseContract {
     func createUserTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void) {
         var statement: OpaquePointer?
-        let query = "create table if not exists User(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, phoneNumber INTEGER, emailID TEXT, password TEXT, profilePictureURL TEXT);"
+        let query = "create table if not exists User(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, phoneNumber INTEGER, emailID TEXT, password TEXT, userType INTEGER, profilePictureURL TEXT);"
         if sqlite3_prepare(DB, query, -1, &statement, nil) == SQLITE_OK{
             if sqlite3_step(statement) == SQLITE_DONE{
                 success("User table created")

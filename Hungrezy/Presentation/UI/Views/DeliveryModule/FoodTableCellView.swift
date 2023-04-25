@@ -6,11 +6,13 @@
 //
 
 import AppKit
+
 protocol FoodModelContract {
     var foodName: String { get }
     var foodDescription: String { get }
     var priceTag: Int { get }
-    var foodImage: NSImage { get }
+    var foodImageUrl: String { get }
+    var foodImage: NSImage? { get }
     var ratings: Float { get }
     var isVegetarian: Bool { get }
     var quantity: Int { get set }
@@ -20,15 +22,17 @@ class FoodModel: FoodModelContract {
     var foodName: String
     var foodDescription: String
     var priceTag: Int
-    var foodImage: NSImage
+    var foodImageUrl: String
+    var foodImage: NSImage?
     var ratings: Float
     var isVegetarian: Bool
     var quantity: Int
     
-    init(foodName: String, foodDescription: String, priceTag: Int, foodImage: NSImage, ratings: Float, isVegetarian: Bool, quantity: Int) {
+    init(foodName: String, foodDescription: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, ratings: Float, isVegetarian: Bool, quantity: Int) {
         self.foodName = foodName
         self.foodDescription = foodDescription
         self.priceTag = priceTag
+        self.foodImageUrl = foodImageUrl
         self.foodImage = foodImage
         self.ratings = ratings
         self.isVegetarian = isVegetarian
@@ -344,14 +348,7 @@ class FoodTableCellView : NSTableCellView {
             
             ratingsView.bottomAnchor.constraint(equalTo: quantityStepper.topAnchor, constant: -12),
             quantityStepper.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            
-//            widthAnchor.constraint(lessThanOrEqualToConstant: 2000),
-//            widthAnchor.constraint(greaterThanOrEqualToConstant: 500),
         ])
-        
-//        let widthConstraint = foodName.widthAnchor.constraint(lessThanOrEqualToConstant: NSScreen.main?.visibleFrame.width ?? 1000)
-//        widthConstraint.priority = .defaultLow
-//        widthConstraint.isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -363,22 +360,24 @@ extension FoodTableCellView {
     @objc func addQuantity(_ sender: NSButton) {
         quantityLabel.intValue += 1
         if quantityLabel.intValue >= 1 && quantityLabel.intValue <= 5 {
-            model?.quantity += 1
+            model?.quantity = Int(quantityLabel.intValue)
             minusButton.isEnabled = true
         }
         if quantityLabel.intValue >= 5 {
             plusButton.isEnabled = false
             quantityLabel.intValue = 5
         }
+        foodListView?.updateCart()
     }
     
     @objc func removeQuantity(_ sender: NSButton) {
-        model?.quantity -= 1
         plusButton.isEnabled = true
         quantityLabel.intValue -= 1
+        model?.quantity = Int(quantityLabel.intValue)
         if quantityLabel.intValue <= 0 {
             minusButton.isEnabled = false
             quantityLabel.intValue = 0
         }
+        foodListView?.updateCart()
     }
 }

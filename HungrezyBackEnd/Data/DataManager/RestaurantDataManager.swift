@@ -65,12 +65,12 @@ extension RestaurantDataManager : AddRestaurantContract {
 
 extension RestaurantDataManager : GetRestaurantListContract {
     func getRestaurantList(filters: [String], success: @escaping ([Restaurant]) -> Void, failure: @escaping (GetRestaurantListError) -> Void) {
-        DispatchQueue.main.async {
-            self.database.fetchRestaurants(filters: filters, success: { [weak self] (restaurants) in
-                self?.success(restaurants: restaurants, callback: success)
-            }, failure: { [weak self] (message) in
-                self?.failure(message: message, callback: failure)
-            })
-        }
+//        network.fetchRestaurantInfo(city: <#T##Location#>, success: <#T##([Restaurant]) -> Void#>, failure: <#T##(String) -> Void#>)
+        
+        self.database.fetchRestaurants(filters: filters, success: { [weak self] (restaurants) in
+            self?.success(restaurants: restaurants, callback: success)
+        }, failure: { [weak self] (message) in
+            self?.failure(message: message, callback: failure)
+        })
     }
 }
