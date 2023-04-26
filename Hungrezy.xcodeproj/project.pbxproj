@@ -36,6 +36,12 @@
 		A830938029F8DD5C00DFCEF9 /* CartViewPresenterContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830937F29F8DD5C00DFCEF9 /* CartViewPresenterContract.swift */; };
 		A830938229F8DD6F00DFCEF9 /* CartViewRouterContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938129F8DD6F00DFCEF9 /* CartViewRouterContract.swift */; };
 		A830938429F8E22A00DFCEF9 /* CartViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938329F8E22A00DFCEF9 /* CartViewPresenter.swift */; };
+		A830938629F93E3A00DFCEF9 /* OrdersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938529F93E3A00DFCEF9 /* OrdersListView.swift */; };
+		A830938829F93E4200DFCEF9 /* OrdersDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938729F93E4200DFCEF9 /* OrdersDetailedView.swift */; };
+		A830938A29F93EC300DFCEF9 /* OrdersViewContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938929F93EC300DFCEF9 /* OrdersViewContract.swift */; };
+		A830938C29F93ED300DFCEF9 /* OrdersViewPresenterContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938B29F93ED300DFCEF9 /* OrdersViewPresenterContract.swift */; };
+		A830938E29F93EDD00DFCEF9 /* OrdersViewRouterContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938D29F93EDD00DFCEF9 /* OrdersViewRouterContract.swift */; };
+		A830939029F93F2A00DFCEF9 /* OrdersViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830938F29F93F2A00DFCEF9 /* OrdersViewPresenter.swift */; };
 		A85A059B29EFBA1E00933E19 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A059A29EFBA1E00933E19 /* Order.swift */; };
 		A85A059D29EFC78A00933E19 /* OrdersDataNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A059C29EFC78A00933E19 /* OrdersDataNetworkService.swift */; };
 		A85A059F29EFCED800933E19 /* OrdersDataDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85A059E29EFCED800933E19 /* OrdersDataDatabaseService.swift */; };
@@ -185,6 +191,12 @@
 		A830937F29F8DD5C00DFCEF9 /* CartViewPresenterContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewPresenterContract.swift; sourceTree = "<group>"; };
 		A830938129F8DD6F00DFCEF9 /* CartViewRouterContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewRouterContract.swift; sourceTree = "<group>"; };
 		A830938329F8E22A00DFCEF9 /* CartViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewPresenter.swift; sourceTree = "<group>"; };
+		A830938529F93E3A00DFCEF9 /* OrdersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersListView.swift; sourceTree = "<group>"; };
+		A830938729F93E4200DFCEF9 /* OrdersDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersDetailedView.swift; sourceTree = "<group>"; };
+		A830938929F93EC300DFCEF9 /* OrdersViewContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewContract.swift; sourceTree = "<group>"; };
+		A830938B29F93ED300DFCEF9 /* OrdersViewPresenterContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewPresenterContract.swift; sourceTree = "<group>"; };
+		A830938D29F93EDD00DFCEF9 /* OrdersViewRouterContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewRouterContract.swift; sourceTree = "<group>"; };
+		A830938F29F93F2A00DFCEF9 /* OrdersViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewPresenter.swift; sourceTree = "<group>"; };
 		A85A059A29EFBA1E00933E19 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		A85A059C29EFC78A00933E19 /* OrdersDataNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersDataNetworkService.swift; sourceTree = "<group>"; };
 		A85A059E29EFCED800933E19 /* OrdersDataDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersDataDatabaseService.swift; sourceTree = "<group>"; };
@@ -346,6 +358,8 @@
 			isa = PBXGroup;
 			children = (
 				A8F80AAE29DFE45D00C62B80 /* OrdersView.swift */,
+				A830938529F93E3A00DFCEF9 /* OrdersListView.swift */,
+				A830938729F93E4200DFCEF9 /* OrdersDetailedView.swift */,
 			);
 			path = OrdersModule;
 			sourceTree = "<group>";
@@ -596,6 +610,7 @@
 				A896B8EF29ED187F008C973D /* MenuViewPresenter.swift */,
 				A830937929F66DD000DFCEF9 /* FoodListViewPresenter.swift */,
 				A830938329F8E22A00DFCEF9 /* CartViewPresenter.swift */,
+				A830938F29F93F2A00DFCEF9 /* OrdersViewPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -629,6 +644,9 @@
 				A830937D29F8DD3B00DFCEF9 /* CartViewContract.swift */,
 				A830937F29F8DD5C00DFCEF9 /* CartViewPresenterContract.swift */,
 				A830938129F8DD6F00DFCEF9 /* CartViewRouterContract.swift */,
+				A830938929F93EC300DFCEF9 /* OrdersViewContract.swift */,
+				A830938B29F93ED300DFCEF9 /* OrdersViewPresenterContract.swift */,
+				A830938D29F93EDD00DFCEF9 /* OrdersViewRouterContract.swift */,
 			);
 			path = Contract;
 			sourceTree = "<group>";
@@ -796,6 +814,7 @@
 				A8ADAEBE29E5BA9C009C3F90 /* RestaurantCollectionItemView.swift in Sources */,
 				A8F80AB129DFF24500C62B80 /* UserType.swift in Sources */,
 				A82F581129E17CFD00811E04 /* RestaurantDataNetworkContract.swift in Sources */,
+				A830938829F93E4200DFCEF9 /* OrdersDetailedView.swift in Sources */,
 				A85A059D29EFC78A00933E19 /* OrdersDataNetworkService.swift in Sources */,
 				A8ADAEB029E53975009C3F90 /* AddRestaurantFormContract.swift in Sources */,
 				A896B8EC29ED16D3008C973D /* FoodItemsFilterView.swift in Sources */,
@@ -817,6 +836,7 @@
 				A8F80AA329DFDDFC00C62B80 /* ModuleViewContract.swift in Sources */,
 				A8F80AA929DFE43C00C62B80 /* DeliveryView.swift in Sources */,
 				A830938229F8DD6F00DFCEF9 /* CartViewRouterContract.swift in Sources */,
+				A830938E29F93EDD00DFCEF9 /* OrdersViewRouterContract.swift in Sources */,
 				A830937429F666F200DFCEF9 /* FoodListViewContract.swift in Sources */,
 				A8ADAEAE29E53962009C3F90 /* AddRestaurantFormPresenterContract.swift in Sources */,
 				A8724E9629D88B2F002C8369 /* AuthenticateUser.swift in Sources */,
@@ -845,6 +865,7 @@
 				A8BF317329D56A2400781178 /* AuthenticationPageImageView.swift in Sources */,
 				A8ADAEAA29E52858009C3F90 /* ToolBarRouterContract.swift in Sources */,
 				A896B8F229ED1CC1008C973D /* FoodTableCellView.swift in Sources */,
+				A830938629F93E3A00DFCEF9 /* OrdersListView.swift in Sources */,
 				A830937629F666FA00DFCEF9 /* FoodListPresenterContract.swift in Sources */,
 				A8F80AA129DFD80A00C62B80 /* ModulePresenter.swift in Sources */,
 				A830936E29F65A7A00DFCEF9 /* GetImageDataManager.swift in Sources */,
@@ -858,6 +879,7 @@
 				A896B8FE29EEA6FF008C973D /* CartTotalView.swift in Sources */,
 				A800CD0929E3D0B400901C5E /* RestaurantDatabaseService.swift in Sources */,
 				A8F80A5E29DE943200C62B80 /* HomeViewRouterContract.swift in Sources */,
+				A830938A29F93EC300DFCEF9 /* OrdersViewContract.swift in Sources */,
 				A8ADAEC229E80A43009C3F90 /* FoodDataNetworkContract.swift in Sources */,
 				A8ADAECE29E82826009C3F90 /* AddFoodContract.swift in Sources */,
 				A800CD1329E40AA200901C5E /* GetRestaurantList.swift in Sources */,
@@ -885,6 +907,7 @@
 				A800CD1D29E42D9000901C5E /* CustomTextField.swift in Sources */,
 				A85A05AD29EFFA9800933E19 /* FetchRestaurantOrdersContract.swift in Sources */,
 				A8BF314F29D4996900781178 /* UserAccountDatabaseService.swift in Sources */,
+				A830939029F93F2A00DFCEF9 /* OrdersViewPresenter.swift in Sources */,
 				A830937029F65AF000DFCEF9 /* GetImage.swift in Sources */,
 				A8ADAECA29E81904009C3F90 /* FoodDataNetworkService.swift in Sources */,
 				A8BF316C29D561CC00781178 /* AuthenticationView.swift in Sources */,
@@ -898,6 +921,7 @@
 				A830936C29F654FA00DFCEF9 /* GetImageNetworkContract.swift in Sources */,
 				A8F80A9F29DFD30E00C62B80 /* ModulePresenterContract.swift in Sources */,
 				A8ADAEC429E80A50009C3F90 /* FoodDataDatabaseContract.swift in Sources */,
+				A830938C29F93ED300DFCEF9 /* OrdersViewPresenterContract.swift in Sources */,
 				A8BF316829D55EB800781178 /* UserAccountNetworkService.swift in Sources */,
 				A896B8EA29ED1531008C973D /* MenuView.swift in Sources */,
 				A800CD0B29E3F6F300901C5E /* RestaurantDataManager.swift in Sources */,

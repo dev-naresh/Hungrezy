@@ -91,7 +91,7 @@ extension Router : HomeViewRouterContract {
     
     func loadOrdersModule() {
         homeView?.contentView.removeFromSuperview()
-        let view = Assembler.getOrdersView(user: homeView?.user, location: Location.Chennai)
+        let view = Assembler.getOrdersView(router: self, user: homeView!.user)
 //        homeView?.sideView.ordersButtonAction()
         
         
@@ -144,7 +144,7 @@ extension Router: DeliveryViewRouterContract {
 extension Router: CartViewRouterContract {
     func launchOrdersModule() {
         homeView?.contentView.removeFromSuperview()
-        let view = Assembler.getOrdersView(user: homeView?.user, location: Location.Chennai)
+        let view = Assembler.getOrdersView(router: self, user: homeView!.user)
         
         homeView?.sideView.resetImage()
         homeView?.sideView.ordersButtonView.image = NSImage(systemSymbolName: "bag.fill", accessibilityDescription: nil)
@@ -162,5 +162,9 @@ extension Router: FoodListRouterContract {
 }
 
 extension Router: MenuViewRouterContract {
+    
+}
+
+extension Router: OrdersViewRouterContract {
     
 }

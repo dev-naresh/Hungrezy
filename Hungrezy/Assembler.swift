@@ -83,9 +83,31 @@ class Assembler {
         return view
     }
     
-    static func getOrdersView(user: User?, location: Location) -> OrdersView {
-        let view = OrdersView(user: user)
+    static func getOrdersView(router: Router, user: User) -> OrdersView {
+//        let getRestaurantListUseCase = getGetRestaurantListUseCase()
+//        let getImageUseCase = getGetImageUseCase()
+//        let presenter = DeliveryViewPresenter(getRestaurantList: getRestaurantListUseCase, getImage: getImageUseCase)
+//        let view = DeliveryView(presenter: presenter)
+//        presenter.router = router
+//        presenter.view = view
+//        view.presenter = presenter
+//        return view
+        
+        let fetchUserOrders = getFetchUserOrdersUseCase()
+        let presenter = OrdersViewPresenter(fetchUserOrders: fetchUserOrders)
+        let view = OrdersView(user: user, presenter: presenter)
+        presenter.router = router
+        presenter.view = view
+        view.presenter = presenter
         return view
+    }
+    
+    private static func getFetchUserOrdersUseCase() -> FetchUserOrders {
+        let database = OrdersDataDatabaseService()
+        let network = OrdersDataNetworkService()
+        let dataManager = OrdersDataManager(database: database, network: network)
+        let useCase = FetchUserOrders(dataManager: dataManager)
+        return useCase
     }
     
     static func getAddRestaurantView(router: AddRestaurantFormRouterContract) -> AddRestaurantView {
