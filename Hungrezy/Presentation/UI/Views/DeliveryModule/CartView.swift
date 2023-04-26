@@ -10,11 +10,13 @@ import LocalAuthentication
 
 class CartView : NSView {
     weak var foodListView: FoodListView?
+    var presenter: CartViewPresenterContract
     
     var foodModels: [FoodModel] = [] {
         didSet {
             cartModels = []
             for foodModel in foodModels {
+                let foodID = foodModel.foodID
                 let foodName = foodModel.foodName
                 let priceTag = foodModel.priceTag
                 let foodImageUrl = foodModel.foodImageUrl
@@ -22,7 +24,7 @@ class CartView : NSView {
                 let isVegeterian = foodModel.isVegetarian
                 let quantity = foodModel.quantity
                 
-                let cartModel = CartModel(foodName: foodName, priceTag: priceTag, foodImageUrl: foodImageUrl, foodImage: foodImage, isVegetarian: isVegeterian, quantity: quantity)
+                let cartModel = CartModel(foodID: foodID, foodName: foodName, priceTag: priceTag, foodImageUrl: foodImageUrl, foodImage: foodImage, isVegetarian: isVegeterian, quantity: quantity)
                 cartModels.append(cartModel)
             }
             tableView.reloadData()
@@ -34,7 +36,8 @@ class CartView : NSView {
             updateCartTotal()
         }
     }
-    var restaurant: Restaurant
+    
+    var restaurant: Restaurant?
     
     lazy var restaurantLabel: NSTextField = {
         let view = NSTextField()
@@ -42,9 +45,35 @@ class CartView : NSView {
         view.isBordered = false
         view.backgroundColor = .clear
         view.lineBreakMode = .byTruncatingTail
-        view.stringValue = restaurant.name 
+        view.stringValue = restaurant?.name ?? ""
         let fontDescriptor = NSFontDescriptor(name: "Cochin", size: 25).withSymbolicTraits(.bold)
         view.font = NSFont(descriptor: fontDescriptor, size: 25)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }()
+    
+    lazy var deliveryLocationLabel: NSTextField = {
+        let view = NSTextField()
+        view.isEditable = false
+        view.isBordered = false
+        view.backgroundColor = .clear
+        view.lineBreakMode = .byTruncatingTail
+        view.stringValue = "Delivery Address: "
+        view.font = NSFont(name: "Optima", size: 14)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }()
+    
+    lazy var deliveryLocationField: NSTextField = {
+        let view = NSTextField()
+        view.bezelStyle = .roundedBezel
+        view.focusRingType = .none
+        view.wantsLayer = true
+        view.delegate = self
+        view.layer?.borderWidth = 1.5
+        view.layer?.borderColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
@@ -150,9 +179,26 @@ class CartView : NSView {
         }
     }
     
-    init(restaurant: Restaurant) {
-        self.restaurant = restaurant
+    func getCartTotalValues() -> (cartTotal: Int, tax: Int, packingFee:Int, deliveryFee: Int, grandTotal: Int) {
+        var cartTotal = 0
+        var quantityTotal = 0
+        for i in 0..<cartModels.count {
+            cartTotal += (cartModels[i].priceTag * cartModels[i].quantity)
+            quantityTotal += cartModels[i].quantity
+        }
+        let tax: Int = Int(0.05 * Double(cartTotal))
+        let packingFee = quantityTotal * 10
+        let deliveryFee = 40
+        
+        return (cartTotal: cartTotal, tax: tax, packingFee:packingFee, deliveryFee: deliveryFee, grandTotal: cartTotal + tax + packingFee + deliveryFee)
+    }
+    
+    init(presenter: CartViewPresenterContract) {
+        self.presenter = presenter
         super.init(frame: NSZeroRect)
+        
+        deliveryLocationLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        deliveryLocationField.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         NSLayoutConstraint.activate([
             restaurantLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
@@ -168,8 +214,17 @@ class CartView : NSView {
             cartTotalView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             cartTotalView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             
-            cartTotalView.bottomAnchor.constraint(equalTo: clearCartButton.topAnchor, constant: -15),
-            cartTotalView.bottomAnchor.constraint(equalTo: paymentButton.topAnchor, constant: -15),
+            cartTotalView.bottomAnchor.constraint(equalTo: deliveryLocationField.topAnchor, constant: -15),
+//            cartTotalView.bottomAnchor.constraint(equalTo: deliveryLocationLabel.topAnchor, constant: -15),
+            
+            deliveryLocationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            deliveryLocationLabel.trailingAnchor.constraint(equalTo: deliveryLocationField.leadingAnchor),
+//            deliveryLocationLabel.widthAnchor.constraint(equalToConstant: 100),
+            deliveryLocationField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            deliveryLocationLabel.centerYAnchor.constraint(equalTo: deliveryLocationField.centerYAnchor),
+            deliveryLocationField.heightAnchor.constraint(equalToConstant: 25),
+//            deliveryLocationLabel.bottomAnchor.constraint(equalTo: clearCartButton.topAnchor, constant: -15),
+            deliveryLocationField.bottomAnchor.constraint(equalTo: paymentButton.topAnchor, constant: -15),
             
             clearCartButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             clearCartButton.trailingAnchor.constraint(equalTo: paymentButton.leadingAnchor, constant: -15),
@@ -219,13 +274,28 @@ extension CartView {
     @objc func payAction(sender: NSButton) {
         let context = LAContext()
         var error: NSError?
-
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Pay using Apple Pay") { [weak self] (success, error) in
+        var foodIDs: [String] = []
+        var quantities: [Int] = []
+        for model in cartModels {
+            foodIDs.append(model.foodID)
+            quantities.append(model.quantity)
+        }
+        
+        let (cartTotal, gst, packingFee, deliveryFee, grandTotal) = getCartTotalValues()
+        
+        if deliveryLocationField.stringValue == "" {
+            deliveryLocationField.layer?.borderColor = NSColor.red.cgColor
+            return
+        }
+        
+        let order = Order(orderID: "", userID: presenter.getUser().id, restaurantID: restaurant?.id ?? "", foodIDs: foodIDs, quantities: quantities, cartTotal: cartTotal, gst: gst, packingFee: packingFee, deliveryFee: deliveryFee, grandTotal: grandTotal, orderDate: TimeConverter.dateToInt64(NSDate()), deliveryAddress: deliveryLocationField.stringValue, customerMobileNumber: presenter.getUser().phoneNumber)
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Pay using Apple Pay") { [weak self] (success, error) in
                 if success {
                     print("Authentication succeeded")
                     DispatchQueue.main.async {
-                        (self?.superview as? MenuView)?.presenter.launchOrdersModule()
+                        self?.presenter.addNewOrder(order: order)
                     }
                 } else {
                     print("Authentication failed: \(error?.localizedDescription ?? "Unknown error")")
@@ -234,11 +304,21 @@ extension CartView {
         } else {
             print("Biometric authentication not available: \(error?.localizedDescription ?? "Unknown error")")
         }
-
-        
     }
     
     @objc func clearCart(sender: NSButton) {
-        (superview as? MenuView)?.presenter.relaunchMenuView(restaurant: restaurant)
+        presenter.relaunchMenuView(restaurant: restaurant!)
+    }
+}
+
+extension CartView : CartViewContract {
+    
+}
+
+extension CartView : NSTextFieldDelegate {
+    func controlTextDidChange(_ obj: Notification) {
+        if let textField = obj.object as? NSTextField {
+            textField.layer?.borderColor = .clear
+        }
     }
 }

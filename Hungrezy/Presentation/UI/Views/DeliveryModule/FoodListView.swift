@@ -15,7 +15,7 @@ class FoodListView : NSView {
         didSet {
             foodModels = []
             for food in foods {
-                let model = FoodModel(foodName: food.name, foodDescription: food.description, priceTag: food.price, foodImageUrl: food.imageURL, foodImage: nil, ratings: food.ratings, cuisine: food.cuisine, isVegetarian: food.isVegetarian, quantity: 0)
+                let model = FoodModel(foodID: food.foodID, foodName: food.name, foodDescription: food.description, priceTag: food.price, foodImageUrl: food.imageURL, foodImage: nil, ratings: food.ratings, cuisine: food.cuisine, isVegetarian: food.isVegetarian, quantity: 0)
                 foodModels.append(model)
             }
             tableView.reloadData()
@@ -98,28 +98,7 @@ extension FoodListView : NSTableViewDelegate {
         
         if filteredFoodModels[row].foodImage == nil {
             presenter.getFoodImageData(index: row, imageUrl: filteredFoodModels[row].foodImageUrl)
-//            tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [0])
         }
-        
-//            if let url = URL(string: foods[row].imageURL) {
-//                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//
-//                    guard let data = data, error == nil else {
-//                        print("Error loading image: \(error?.localizedDescription ?? "unknown error")")
-//                        return
-//                    }
-//                    DispatchQueue.main.async {
-//                        guard let image = NSImage(data: data) else {
-//                            print("Invalid image data")
-//                            return
-//                        }
-//                        self.models[row].foodImage = image
-//                        self.models[row].foodImage?.size = NSSize(width: 100, height: 75)
-//                        tableView.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: [0])
-//                    }
-//                }
-//                task.resume()
-//            }
         
         cellView?.model = filteredFoodModels[row]
         return cellView

@@ -8,8 +8,24 @@
 import Cocoa
 
 class DeliveryRestaurantView : NSView {
-    var restaurants: [Restaurant] = []
-    var restaurantImages: [Int : NSImage] = [:]
+    var restaurants: [Restaurant] = [] {
+        didSet {
+            restaurantModels = []
+            for restaurant in restaurants {
+                let model = RestaurantModel(restaurantName: restaurant.name, cuisines: restaurant.cuisines, ratings: restaurant.ratings, price: Int(restaurant.averageCost), imageUrl: restaurant.imageURL)
+                restaurantModels.append(model)
+            }
+            collectionView.reloadData()
+        }
+    }
+    
+    var restaurantModels: [RestaurantModelContract] = [] {
+        didSet {
+            filteredRestaurantModels = restaurantModels
+        }
+    }
+    
+    var filteredRestaurantModels: [RestaurantModelContract] = []
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -69,8 +85,6 @@ class DeliveryRestaurantView : NSView {
 
 extension DeliveryRestaurantView : NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-//        print(inde)
-//        (superview as? DeliveryView)?.presenter.getFoodsList(filters: ["restaurantID=\(restaurants[indexPaths.first![1]].id)"])
         (superview as? DeliveryView)?.presenter.getMenuView(restaurant: restaurants[indexPaths.first![1]])
     }
     
@@ -90,32 +104,24 @@ extension DeliveryRestaurantView : NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let view = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier("com.hungrezy.delivery"), for: indexPath) as! RestaurantCollectionItemView
         
-        let restaurant = restaurants[indexPath[1]]
+        view.model = restaurantModels[indexPath[1]]
         
-        let dummyImage = NSImage(systemSymbolName: "mountain.2", accessibilityDescription: nil)!
-        
-        if self.restaurantImages[indexPath[1]] == nil {
-            if let url = URL(string: restaurant.imageURL) {
-                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                    guard let data = data, error == nil else {
-                        print("Error loading image: \(error?.localizedDescription ?? "unknown error")")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        guard let image = NSImage(data: data) else {
-                            print("Invalid image data")
-                            return
-                        }
-                        self.restaurantImages[indexPath[1]] = image
-                        self.restaurantImages[indexPath[1]]?.size = NSSize(width: 270, height: 175)
-                        view.makeView(restaurantName: restaurant.name, cuisines: restaurant.cuisines, ratings: restaurant.ratings, price: Int(restaurant.averageCost), image: self.restaurantImages[indexPath[1]] ?? dummyImage)
-                    }
-                }
-                task.resume()
-            }
+        if self.restaurantModels[indexPath[1]].image == nil {
+            (self.superview as? DeliveryView)?.presenter.getFoodImageData(index: indexPath[1], imageUrl: view.model?.imageUrl ?? "")
         }
         
-        view.makeView(restaurantName: restaurant.name, cuisines: restaurant.cuisines, ratings: restaurant.ratings, price: Int(restaurant.averageCost), image: self.restaurantImages[indexPath[1]] ?? dummyImage)
         return view
+    }
+}
+
+extension DeliveryRestaurantView {
+    func updateImage(row: Int, imageData: Data) {
+        guard let image = NSImage(data: imageData) else {
+            print("Invalid image data")
+            return
+        }
+        self.restaurantModels[row].image = image
+        self.restaurantModels[row].image?.size = NSSize(width: 270, height: 170)
+        collectionView.reloadItems(at: [IndexPath(item: row, section: 0)])
     }
 }

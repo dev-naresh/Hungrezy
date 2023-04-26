@@ -9,4 +9,5 @@ import Foundation
 
 protocol DeliveryViewContract: AnyObject {
     func updateRestaurantsData(restaurants: [Restaurant])
+    func updateRestaurantImage(row: Int, imageData: Data)
 }

@@ -65,14 +65,16 @@ class OrdersDataManager {
 
 extension OrdersDataManager : AddOrderContract {
     func addOrder(order: Order, success: @escaping (Order) -> Void, failure: @escaping (AddOrderError) -> Void) {
-        network.addOrder(order: order, success: { [weak self] (order) in
-            self?.success(order: order, callback: success)
-        }, failure: { [weak self] (message) in
-            self?.failure(message: message, callback: failure)
-        })
-        
-        database.insertIntoOrderTable(order: order, success: { [weak self] (order) in
-            self?.success(order: order, callback: success)
+        network.addOrder(order: order, success: { [weak self] (retOrder) in
+            print(retOrder)
+            self?.success(order: retOrder.last ?? order, callback: success)
+            if let order = retOrder.last {
+                self?.database.insertIntoOrderTable(order: order, success: { [weak self] (order) in
+                    self?.success(order: order, callback: success)
+                }, failure: { [weak self] (message) in
+                    self?.failure(message: message, callback: failure)
+                })
+            }
         }, failure: { [weak self] (message) in
             self?.failure(message: message, callback: failure)
         })

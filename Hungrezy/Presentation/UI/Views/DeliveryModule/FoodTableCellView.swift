@@ -8,6 +8,7 @@
 import AppKit
 
 protocol FoodModelContract {
+    var foodID: String { get }
     var foodName: String { get }
     var foodDescription: String { get }
     var priceTag: Int { get }
@@ -20,6 +21,7 @@ protocol FoodModelContract {
 }
 
 class FoodModel: FoodModelContract {
+    var foodID: String
     var foodName: String
     var foodDescription: String
     var priceTag: Int
@@ -30,7 +32,8 @@ class FoodModel: FoodModelContract {
     var isVegetarian: Bool
     var quantity: Int
     
-    init(foodName: String, foodDescription: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, ratings: Float, cuisine: String, isVegetarian: Bool, quantity: Int) {
+    init(foodID: String, foodName: String, foodDescription: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, ratings: Float, cuisine: String, isVegetarian: Bool, quantity: Int) {
+        self.foodID = foodID
         self.foodName = foodName
         self.foodDescription = foodDescription
         self.priceTag = priceTag

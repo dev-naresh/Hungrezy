@@ -52,8 +52,11 @@ class DeliveryView: NSView {
 }
 
 extension DeliveryView : DeliveryViewContract {
+    func updateRestaurantImage(row: Int, imageData: Data) {
+        deliveryRestaurantsView.updateImage(row: row, imageData: imageData)
+    }
+    
     func updateRestaurantsData(restaurants: [Restaurant]) {
-        deliveryRestaurantsView.restaurantImages = [:]
         deliveryRestaurantsView.restaurants = restaurants
         deliveryRestaurantsView.collectionView.reloadData()
         print("Restaurant Data updated")

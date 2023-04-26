@@ -26,19 +26,32 @@ class Router {
         self.window.toolbar = nil
         self.window.titleVisibility = .visible
     }
+    
+    func getUser() -> User {
+        return (window.toolbar as? ToolBar)!.user
+    }
 }
 
 extension Router : AuthenticationRouterContract {
     func launchHomeView(user: User) {
         homeView = Assembler.getHomeView(user: user, router: self)
         let profileView = Assembler.getProfileView(user: user, router: self)
-        
         self.window.contentView = homeView
         self.window.toolbar = ToolBar(user: user, identifier: .homeToolbarIdentifier, profileView: profileView, router: self)
         self.window.titleVisibility = .hidden
         self.window.toolbarStyle = .unified
         
         loadDeliveryModule(location: Location.Chennai)
+    }
+    
+    func launchAuthenticationFailedAlert() {
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "Ok")
+        alert.messageText = "Authentication failed"
+        alert.informativeText = "Please check your EmailID and Password"
+        alert.runModal()
+        print("Authentication failed")
     }
 }
 
@@ -128,7 +141,7 @@ extension Router: DeliveryViewRouterContract {
     }
 }
 
-extension Router: MenuViewRouterContract {
+extension Router: CartViewRouterContract {
     func launchOrdersModule() {
         homeView?.contentView.removeFromSuperview()
         let view = Assembler.getOrdersView(user: homeView?.user, location: Location.Chennai)
@@ -145,5 +158,9 @@ extension Router: MenuViewRouterContract {
 }
 
 extension Router: FoodListRouterContract {
+    
+}
+
+extension Router: MenuViewRouterContract {
     
 }

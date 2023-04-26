@@ -8,6 +8,7 @@
 import Cocoa
 
 protocol CartModelContract {
+    var foodID: String { get }
     var foodName: String { get }
     var priceTag: Int { get }
     var foodImageUrl: String { get }
@@ -17,6 +18,7 @@ protocol CartModelContract {
 }
 
 class CartModel: CartModelContract {
+    var foodID: String
     var foodName: String
     var priceTag: Int
     var foodImageUrl: String
@@ -24,7 +26,8 @@ class CartModel: CartModelContract {
     var isVegetarian: Bool
     var quantity: Int
     
-    init(foodName: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, isVegetarian: Bool, quantity: Int) {
+    init(foodID: String, foodName: String, priceTag: Int, foodImageUrl: String, foodImage: NSImage?, isVegetarian: Bool, quantity: Int) {
+        self.foodID = foodID
         self.foodName = foodName
         self.priceTag = priceTag
         self.foodImageUrl = foodImageUrl
@@ -42,6 +45,8 @@ class CartTableCellView: NSTableCellView {
                 priceTag.stringValue = "₹ \(model.priceTag).00"
                 quantityField.stringValue = "Quantity: \(model.quantity)"
                 itemTotal.stringValue = "₹ \(model.quantity * model.priceTag).00"
+                image.image = model.foodImage
+                image.image?.size = NSSize(width: 50, height: 37.5)
                 
                 if model.isVegetarian {
                     vegOrNonVegMark.contentTintColor = .systemGreen
@@ -115,12 +120,32 @@ class CartTableCellView: NSTableCellView {
         return view
     }()
     
+    lazy var image: NSImageView = {
+        let view = NSImageView()
+        view.imageScaling = .scaleProportionallyUpOrDown
+        view.contentTintColor = .controlAccentColor
+        view.image = NSImage(systemSymbolName: "fork.knife.circle", accessibilityDescription: nil)
+        view.image?.size = NSSize(width: 50, height: 37.5)
+        view.image?.resizingMode = .stretch
+        view.wantsLayer = true
+        view.layer?.cornerRadius = 10
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }()
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         
         NSLayoutConstraint.activate([
-            foodName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            priceTag.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+//            image.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            image.centerYAnchor.constraint(equalTo: centerYAnchor),
+            image.trailingAnchor.constraint(equalTo: foodName.leadingAnchor, constant: -10),
+            image.trailingAnchor.constraint(equalTo: priceTag.leadingAnchor, constant: -10),
+            
+//            foodName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+//            priceTag.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             quantityField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             itemTotal.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             

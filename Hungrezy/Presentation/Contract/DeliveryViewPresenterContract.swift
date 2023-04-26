@@ -10,4 +10,5 @@ import Foundation
 protocol DeliveryViewPresenterContract: AnyObject {
     func getMenuView(restaurant: Restaurant)
     func getRestaurantsList(filters: [String])
+    func getFoodImageData(index: Int, imageUrl: String)
 }

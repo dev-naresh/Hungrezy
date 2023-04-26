@@ -20,15 +20,10 @@ class MenuView : NSView {
     
     var foodListView: FoodListView
     
-    lazy var cartView: CartView = {
-        var view = CartView(restaurant: restaurant)
-        view.restaurantLabel.stringValue = restaurant.name
-        view.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(view)
-        return view
-    }()
+    var cartView: CartView
     
-    init(restaurant: Restaurant, foodListView: FoodListView, presenter: MenuViewPresenter) {
+    init(restaurant: Restaurant, foodListView: FoodListView, cartView: CartView, presenter: MenuViewPresenter) {
+        self.cartView = cartView
         self.foodListView = foodListView
         self.presenter = presenter
         self.restaurant = restaurant
@@ -37,6 +32,12 @@ class MenuView : NSView {
         foodListView.cartView = self.cartView
         foodListView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(foodListView)
+        
+        cartView.restaurantLabel.stringValue = restaurant.name
+        cartView.restaurant = restaurant
+        cartView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(cartView)
+        
         presenter.getFoodsList(filters: ["restaurantID=\(restaurant.id)"])
 //        getRestaurantsList(filters: ["city=\"Chennai\""])
         

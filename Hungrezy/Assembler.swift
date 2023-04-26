@@ -55,8 +55,9 @@ class Assembler {
     }
     
     static func getDeliveryView(router: Router, location: Location) -> DeliveryView {
-        let useCase = getGetRestaurantListUseCase()
-        let presenter = DeliveryViewPresenter(getRestaurantList: useCase)
+        let getRestaurantListUseCase = getGetRestaurantListUseCase()
+        let getImageUseCase = getGetImageUseCase()
+        let presenter = DeliveryViewPresenter(getRestaurantList: getRestaurantListUseCase, getImage: getImageUseCase)
         let view = DeliveryView(presenter: presenter)
         presenter.router = router
         presenter.view = view
@@ -110,8 +111,9 @@ class Assembler {
         let presenter = MenuViewPresenter(getFoodList: useCase)
         presenter.router = router
         
+        let cartView = getCartView(router: router as! Router)
         let foodListView = getFoodListView(router: router as! Router)
-        let view = MenuView(restaurant: restaurant, foodListView: foodListView, presenter: presenter)
+        let view = MenuView(restaurant: restaurant, foodListView: foodListView, cartView: cartView, presenter: presenter)
         
         view.foodListView = foodListView
         view.presenter = presenter
@@ -141,6 +143,24 @@ class Assembler {
         let network = GetImageNetworkSerivce()
         let dataManager = GetImageDataManager(network: network)
         let useCase = GetImage(dataManager: dataManager)
+        return useCase
+    }
+    
+    static func getCartView(router: CartViewRouterContract) -> CartView {
+        let useCase = getAddOrderUseCase()
+        let presenter = CartViewPresenter(addOrder: useCase)
+        presenter.router = router
+        let view = CartView(presenter: presenter)
+        view.presenter = presenter
+        presenter.view = view
+        return view
+    }
+    
+    private static func getAddOrderUseCase() -> AddOrder {
+        let network = OrdersDataNetworkService()
+        let database = OrdersDataDatabaseService()
+        let dataManager = OrdersDataManager(database: database, network: network)
+        let useCase = AddOrder(dataManager: dataManager)
         return useCase
     }
 }

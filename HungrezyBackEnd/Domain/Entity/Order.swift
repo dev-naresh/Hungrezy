@@ -18,4 +18,7 @@ struct Order: Codable, Hashable {
     var packingFee: Int
     var deliveryFee: Int
     var grandTotal: Int
+    var orderDate: Int64
+    var deliveryAddress: String
+    var customerMobileNumber: Int64
 }

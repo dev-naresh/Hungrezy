@@ -7,7 +7,71 @@
 
 import Cocoa
 
+protocol RestaurantModelContract {
+    var restaurantName: String { get }
+    var cuisines: String { get }
+    var ratings: Float { get }
+    var price: Int { get }
+    var imageUrl: String { get }
+    var image: NSImage? { get set }
+}
+
+class RestaurantModel: RestaurantModelContract {
+    var restaurantName: String
+    var cuisines: String
+    var ratings: Float
+    var price: Int
+    var imageUrl: String
+    var image: NSImage?
+    
+    init(restaurantName: String, cuisines: String, ratings: Float, price: Int, imageUrl: String, image: NSImage? = nil) {
+        self.restaurantName = restaurantName
+        self.cuisines = cuisines
+        self.ratings = ratings
+        self.price = price
+        self.imageUrl = imageUrl
+        self.image = image
+    }
+}
+
 class RestaurantCollectionItemView : NSCollectionViewItem {
+//    func makeView(restaurantName: String, cuisines: String, ratings: Float, price: Int, image: NSImage) {
+//        self.restaurantName.stringValue = restaurantName
+//        self.cuisines.stringValue = cuisines
+////        self.ratingField.stringValue = "\(ratings)"
+//        self.approximatePrice.stringValue = "₹\(price) for two"
+//        self.image.image = image
+//
+//        if ratings == 0.0 {
+//            self.ratingsView.layer?.backgroundColor = .init(gray: 0.5, alpha: 1)
+//            self.ratingField.stringValue = "--"
+//        } else {
+//            self.ratingsView.layer?.backgroundColor = .init(red: CGFloat(5 - ratings)/3, green: CGFloat(ratings - 2)/3, blue: 0, alpha: 1)
+//            self.ratingField.stringValue = "\(ratings)"
+//        }
+//
+//    }
+
+
+    var model: RestaurantModelContract? {
+        didSet {
+            if let model = model {
+                restaurantName.stringValue = model.restaurantName
+                cuisines.stringValue = model.cuisines
+                approximatePrice.stringValue = "₹\(model.price) for two"
+                image.image = model.image
+                
+                if model.ratings == 0.0 {
+                    self.ratingsView.layer?.backgroundColor = .init(gray: 0.5, alpha: 1)
+                    self.ratingField.stringValue = "--"
+                } else {
+                    self.ratingsView.layer?.backgroundColor = .init(red: CGFloat(5 - model.ratings)/3, green: CGFloat(model.ratings - 2)/3, blue: 0, alpha: 1)
+                    self.ratingField.stringValue = "\(model.ratings)"
+                }
+            }
+            
+        }
+    }
     
     override func mouseEntered(with event: NSEvent) {
         view.layer?.cornerRadius = 8
@@ -112,23 +176,6 @@ class RestaurantCollectionItemView : NSCollectionViewItem {
         return imageView
     }()
     
-    func makeView(restaurantName: String, cuisines: String, ratings: Float, price: Int, image: NSImage) {
-        self.restaurantName.stringValue = restaurantName
-        self.cuisines.stringValue = cuisines
-//        self.ratingField.stringValue = "\(ratings)"
-        self.approximatePrice.stringValue = "₹\(price) for two"
-        self.image.image = image
-        
-        if ratings == 0.0 {
-            self.ratingsView.layer?.backgroundColor = .init(gray: 0.5, alpha: 1)
-            self.ratingField.stringValue = "--"
-        } else {
-            self.ratingsView.layer?.backgroundColor = .init(red: CGFloat(5 - ratings)/3, green: CGFloat(ratings - 2)/3, blue: 0, alpha: 1)
-            self.ratingField.stringValue = "\(ratings)"
-        }
-        
-    }
-
     override func loadView() {
         view = NSView()
         view.wantsLayer = true

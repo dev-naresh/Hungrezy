@@ -30,14 +30,6 @@ extension MenuViewPresenter : MenuViewPresenterContract {
         view?.applySorting(by: sortingType)
     }
     
-    func launchOrdersModule() {
-        router?.launchOrdersModule()
-    }
-    
-    func relaunchMenuView(restaurant: Restaurant) {
-        router?.loadMenuView(restaurant: restaurant)
-    }
-    
     func getFoodsList(filters: [String]) {
         let request = GetFoodListRequest(filters: filters)
         getFoodList.execute(request: request, onSuccess: { [weak self] (response) in

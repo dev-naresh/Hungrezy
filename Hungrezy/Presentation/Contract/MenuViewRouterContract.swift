@@ -8,6 +8,6 @@
 import Foundation
 
 protocol MenuViewRouterContract: AnyObject {
-    func launchOrdersModule()
-    func loadMenuView(restaurant: Restaurant)
+//    func launchOrdersModule()
+//    func loadMenuView(restaurant: Restaurant)
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol OrdersDataNetworkContract {
-    func addOrder(order: Order, success: @escaping (Order) -> Void, failure: @escaping (String) -> Void)
+    func addOrder(order: Order, success: @escaping ([Order]) -> Void, failure: @escaping (String) -> Void)
     func fetchOrderInfo(userID: String, success: @escaping ([Order]) -> Void, failure: @escaping (String) -> Void)
     func fetchOrderInfo(restaurantID: String, success: @escaping ([Order]) -> Void, failure: @escaping (String) -> Void)
 }

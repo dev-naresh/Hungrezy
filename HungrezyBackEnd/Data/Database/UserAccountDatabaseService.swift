@@ -75,7 +75,7 @@ extension UserAccountDatabaseService: UserAccountDatabaseContract {
             if sqlite3_step(statement) == SQLITE_ROW {
                 let id = String(cString: sqlite3_column_text(statement, 0))
                 let name = String(cString: sqlite3_column_text(statement, 1))
-                let phoneNumber = sqlite3_column_int(statement, 2)
+                let phoneNumber = sqlite3_column_int64(statement, 2)
                 let emailID = String(cString: sqlite3_column_text(statement, 3))
                 let password = String(cString: sqlite3_column_text(statement, 4))
                 var profilePictureURL: String?

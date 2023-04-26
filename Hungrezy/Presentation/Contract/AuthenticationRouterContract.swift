@@ -10,4 +10,5 @@ import Foundation
 protocol AuthenticationRouterContract: AnyObject {
 //    func launchAuthenticationView()
     func launchHomeView(user: User)
+    func launchAuthenticationFailedAlert()
 }

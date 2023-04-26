@@ -28,8 +28,6 @@ class AuthenticationViewController : NSViewController {
         super.viewDidAppear()
 
         timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] timer in
-            print("Timer fired!")
-
             (self?.view as? AuthenticationView)?.leftView.image.image = self?.images[self?.n ?? 0]
             (self?.view as? AuthenticationView)?.leftView.quote.stringValue = self?.quotes[self?.n ?? 0] ?? ""
 //            self?.window?.contentView = nil

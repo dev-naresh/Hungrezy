@@ -18,4 +18,12 @@ class TimeConverter {
         print(components.hour!, components.minute!)
         return components.hour! * 60 + components.minute!
     }
+    
+    static func dateToInt64(_ date: NSDate) -> Int64 {
+        return Int64(date.timeIntervalSince1970)
+    }
+    
+    static func int64ToDate(timestamp: Int64) -> NSDate {
+        return NSDate(timeIntervalSince1970: TimeInterval(timestamp))
+    }
 }

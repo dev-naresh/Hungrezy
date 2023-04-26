@@ -27,13 +27,11 @@ class AuthenticationPresenter {
     }
     
     func authenticateUserResult(user: User) {
-        print("\(user.name) Authenticated successfully")
-        
         router?.launchHomeView(user: user)
     }
     
     func authenticateUserFailed() {
-        print("Authentication failed")
+        router?.launchAuthenticationFailedAlert()
     }
 }
 

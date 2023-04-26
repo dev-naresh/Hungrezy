@@ -14,7 +14,7 @@ class OrdersDataNetworkService {
 }
  
 extension OrdersDataNetworkService : OrdersDataNetworkContract {
-    func addOrder(order: Order, success: @escaping (Order) -> Void, failure: @escaping (String) -> Void) {
+    func addOrder(order: Order, success: @escaping ([Order]) -> Void, failure: @escaping (String) -> Void) {
         guard let url = URL(string: "https://642432664740174043357d2b.mockapi.io/order") else {
             print("Invalid link...")
             return
@@ -31,15 +31,12 @@ extension OrdersDataNetworkService : OrdersDataNetworkContract {
                 print(error.localizedDescription)
                 failure("Failed to connect")
             } else {
-                DispatchQueue.main.sync {
-                    if let data = data {
-                        let resData = (try? JSONSerialization.jsonObject(with: data, options: [])) as? Dictionary <String , Any>
-                        print(resData ?? "")
-                        success(order)
-                    } else {
-                        failure("Failed to add Restaurant")
-                    }
-                }
+                self.fetchOrderInfo(userID: order.userID,
+                success: { (order) in
+                    success(order)
+                }, failure: { (message) in
+                    failure(message)
+                })
             }
         }
         session.resume()
