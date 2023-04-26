@@ -52,6 +52,14 @@ class DeliveryView: NSView {
 }
 
 extension DeliveryView : DeliveryViewContract {
+    func applySorting(by sortingType: SortingType) {
+        deliveryRestaurantsView.applySorting(by: sortingType)
+    }
+    
+    func applyFilters(starRatingAbove ratings: Float, isPureVegeterian: Bool, isChettinad: Bool, isChinese: Bool, isContinental: Bool, isIndian: Bool, isItalian: Bool, isBiryani: Bool, isStreetFood: Bool) {
+        deliveryRestaurantsView.applyFilters(starRatingAbove: ratings, isPureVegeterian: isPureVegeterian, isChettinad: isChettinad, isChinese: isChinese, isContinental: isContinental, isIndian: isIndian, isItalian: isItalian, isBiryani: isBiryani, isStreetFood: isStreetFood)
+    }
+    
     func updateRestaurantImage(row: Int, imageData: Data) {
         deliveryRestaurantsView.updateImage(row: row, imageData: imageData)
     }

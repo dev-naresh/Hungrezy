@@ -35,7 +35,7 @@ class DeliveryRestaurantFiltersView : NSView {
         dropDown.menu?.addItem(item3)
         dropDown.select(item)
         dropDown.target = self
-        dropDown.action = #selector(filterAction)
+        dropDown.action = #selector(changeCityAction)
         dropDown.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dropDown)
         return dropDown
@@ -316,6 +316,32 @@ class DeliveryRestaurantFiltersView : NSView {
     
     @objc func filterAction() {
         
+        var starRatingsAbove: Float = 0
+        
+        switch ratingsFilter.doubleValue {
+        case 3.5:
+            starRatingsAbove = 3.5
+        case 4.0:
+            starRatingsAbove = 4.0
+        case 4.5:
+            starRatingsAbove = 4.5
+        default:
+            break
+        }
+        
+        (superview as? DeliveryView)?.presenter.applyFilters(starRatingAbove: starRatingsAbove, isPureVegeterian: pureVegCheckBox.state == .on, isChettinad: chettinadCuisineCheckBox.state == .on, isChinese: chineseCuisineCheckBox.state == .on, isContinental: continentalCuisineCheckBox.state == .on, isIndian: indianCuisineCheckBox.state == .on, isItalian: italianCuisineCheckBox.state == .on, isBiryani: biryaniCuisineCheckBox.state == .on, isStreetFood: streetFoodCuisineCheckBox.state == .on)
+        
+        if ratingsHighToLow.state == .on {
+            (superview as? DeliveryView)?.presenter.applySorting(by: .RatingHighToLow)
+        } else if priceLowToHigh.state == .on {
+            (superview as? DeliveryView)?.presenter.applySorting(by: .PriceLowToHigh)
+        } else if priceHighToLow.state == .on {
+            (superview as? DeliveryView)?.presenter.applySorting(by: .PriceHighToLow)
+        }
+    }
+    
+    @objc func changeCityAction() {
+        
         if ratingsFilter.doubleValue == 3.0 {
             starRatingFilterLabel.stringValue = "By star rating: Any"
         } else {
@@ -324,63 +350,8 @@ class DeliveryRestaurantFiltersView : NSView {
         
         var filters: [String] = []
         
-        switch ratingsFilter.doubleValue {
-        case 3.5:
-            filters.append("ratings>3.5")
-        case 4.0:
-            filters.append("ratings>4.0")
-        case 4.5:
-            filters.append("ratings>4.5")
-        default:
-            break
-        }
-        
         filters.append("city=\"\(locationDropDown.title)\"")
         filters.append("(diningType=0 or diningType=2)")
-        
-        if chettinadCuisineCheckBox.state == .on {
-            filters.append("cuisines LIKE \"%Chettinad%\"")
-        }
-        
-        if chineseCuisineCheckBox.state == .on {
-            filters.append("cuisines LIKE \"%Chinese%\"")
-        }
-        
-        if continentalCuisineCheckBox.state == .on {
-            filters.append("cuisines LIKE \"%Continental%\"")
-        }
-        
-        if indianCuisineCheckBox.state == .on {
-            filters.append("cuisines LIKE \"%Indian%\"")
-        }
-        
-        if italianCuisineCheckBox.state == .on {
-            filters.append("cuisines LIKE \"%Italian%\"")
-        }
-        
-        if biryaniCuisineCheckBox.state == .on {
-            filters.append("cuisines LIKE \"%Biryani%\"")
-        }
-        
-        if streetFoodCuisineCheckBox.state == .on {
-            filters.append("cuisines LIKE \"%Street Food%\"")
-        }
-        
-        if pureVegCheckBox.state == .on {
-            filters.append("facilities LIKE \"%Pure Veg%\"")
-        }
-        
-        if ratingsHighToLow.state == .on {
-            filters[filters.count - 1] += " order by ratings desc"
-        }
-        
-        else if priceHighToLow.state == .on {
-            filters[filters.count - 1] += " order by averageCost desc"
-        }
-        
-        else if priceLowToHigh.state == .on {
-            filters[filters.count - 1] += " order by averageCost"
-        }
         
         (superview as? DeliveryView)?.presenter.getRestaurantsList(filters: filters)
     }

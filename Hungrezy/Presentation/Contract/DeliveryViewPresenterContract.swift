@@ -11,4 +11,6 @@ protocol DeliveryViewPresenterContract: AnyObject {
     func getMenuView(restaurant: Restaurant)
     func getRestaurantsList(filters: [String])
     func getFoodImageData(index: Int, imageUrl: String)
+    func applyFilters(starRatingAbove ratings: Float, isPureVegeterian: Bool, isChettinad: Bool, isChinese: Bool, isContinental: Bool, isIndian: Bool, isItalian: Bool, isBiryani: Bool, isStreetFood: Bool)
+    func applySorting(by: SortingType)
 }

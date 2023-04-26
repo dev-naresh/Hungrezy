@@ -37,6 +37,14 @@ class DeliveryViewPresenter {
 }
 
 extension DeliveryViewPresenter : DeliveryViewPresenterContract {
+    func applySorting(by sortingType: SortingType) {
+        view?.applySorting(by: sortingType)
+    }
+    
+    func applyFilters(starRatingAbove ratings: Float, isPureVegeterian: Bool, isChettinad: Bool, isChinese: Bool, isContinental: Bool, isIndian: Bool, isItalian: Bool, isBiryani: Bool, isStreetFood: Bool) {
+        view?.applyFilters(starRatingAbove: ratings, isPureVegeterian: isPureVegeterian, isChettinad: isChettinad, isChinese: isChinese, isContinental: isContinental, isIndian: isIndian, isItalian: isItalian, isBiryani: isBiryani, isStreetFood: isStreetFood)
+    }
+    
     func getMenuView(restaurant: Restaurant) {
         router?.loadMenuView(restaurant: restaurant)
     }

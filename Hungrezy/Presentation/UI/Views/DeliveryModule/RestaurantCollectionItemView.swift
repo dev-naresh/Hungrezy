@@ -8,8 +8,10 @@
 import Cocoa
 
 protocol RestaurantModelContract {
+    var restaurantID: String { get }
     var restaurantName: String { get }
     var cuisines: String { get }
+    var facilities: String { get }
     var ratings: Float { get }
     var price: Int { get }
     var imageUrl: String { get }
@@ -17,16 +19,20 @@ protocol RestaurantModelContract {
 }
 
 class RestaurantModel: RestaurantModelContract {
+    var restaurantID: String
     var restaurantName: String
     var cuisines: String
+    var facilities: String
     var ratings: Float
     var price: Int
     var imageUrl: String
     var image: NSImage?
     
-    init(restaurantName: String, cuisines: String, ratings: Float, price: Int, imageUrl: String, image: NSImage? = nil) {
+    init(restaurantID: String, restaurantName: String, cuisines: String, facilities: String, ratings: Float, price: Int, imageUrl: String, image: NSImage? = nil) {
+        self.restaurantID = restaurantID
         self.restaurantName = restaurantName
         self.cuisines = cuisines
+        self.facilities = facilities
         self.ratings = ratings
         self.price = price
         self.imageUrl = imageUrl

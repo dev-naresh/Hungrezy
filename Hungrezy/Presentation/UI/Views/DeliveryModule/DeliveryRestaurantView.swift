@@ -12,7 +12,7 @@ class DeliveryRestaurantView : NSView {
         didSet {
             restaurantModels = []
             for restaurant in restaurants {
-                let model = RestaurantModel(restaurantName: restaurant.name, cuisines: restaurant.cuisines, ratings: restaurant.ratings, price: Int(restaurant.averageCost), imageUrl: restaurant.imageURL)
+                let model = RestaurantModel(restaurantID: restaurant.id, restaurantName: restaurant.name, cuisines: restaurant.cuisines, facilities: restaurant.facilities, ratings: restaurant.ratings, price: Int(restaurant.averageCost), imageUrl: restaurant.imageURL)
                 restaurantModels.append(model)
             }
             collectionView.reloadData()
@@ -85,7 +85,13 @@ class DeliveryRestaurantView : NSView {
 
 extension DeliveryRestaurantView : NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        (superview as? DeliveryView)?.presenter.getMenuView(restaurant: restaurants[indexPaths.first![1]])
+        for restaurant in restaurants {
+            if filteredRestaurantModels[indexPaths.first![1]].restaurantID == restaurant.id {
+                (superview as? DeliveryView)?.presenter.getMenuView(restaurant: restaurant)
+                break
+            }
+        }
+        
     }
     
     func collectionView(_ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem, forRepresentedObjectAt indexPath: IndexPath) {
@@ -97,16 +103,15 @@ extension DeliveryRestaurantView : NSCollectionViewDelegate {
 extension DeliveryRestaurantView : NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-//        (superview as? DeliveryView)?.presenter.getRestaurantsList(filters: ["city=\"Chennai\""])
-        return restaurants.count
+        return filteredRestaurantModels.count
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let view = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier("com.hungrezy.delivery"), for: indexPath) as! RestaurantCollectionItemView
         
-        view.model = restaurantModels[indexPath[1]]
+        view.model = filteredRestaurantModels[indexPath[1]]
         
-        if self.restaurantModels[indexPath[1]].image == nil {
+        if self.filteredRestaurantModels[indexPath[1]].image == nil {
             (self.superview as? DeliveryView)?.presenter.getFoodImageData(index: indexPath[1], imageUrl: view.model?.imageUrl ?? "")
         }
         
@@ -115,13 +120,76 @@ extension DeliveryRestaurantView : NSCollectionViewDataSource {
 }
 
 extension DeliveryRestaurantView {
+    func applySorting(by sortingType: SortingType) {
+        switch sortingType {
+        case .PriceHighToLow:
+            filteredRestaurantModels = filteredRestaurantModels.sorted { $0.price > $1.price }
+        case .PriceLowToHigh:
+            filteredRestaurantModels = filteredRestaurantModels.sorted { $0.price < $1.price }
+        case .RatingHighToLow:
+            filteredRestaurantModels = filteredRestaurantModels.sorted { $0.ratings > $1.ratings }
+        default:
+            break
+        }
+        collectionView.reloadData()
+    }
+    
+    func applyFilters(starRatingAbove ratings: Float = 0, isPureVegeterian: Bool = false, isChettinad: Bool = false, isChinese: Bool = false, isContinental: Bool = false, isIndian: Bool = false, isItalian: Bool = false, isBiryani: Bool = false, isStreetFood: Bool = false) {
+        
+        filteredRestaurantModels = []
+        for restaurant in restaurantModels {
+            var cuisines: [String] = []
+            
+            if isChettinad {
+                cuisines.append("Chettinad")
+            }
+            
+            if isChinese {
+                cuisines.append("Chinese")
+            }
+            
+            if isContinental {
+                cuisines.append("Continental")
+            }
+            
+            if isIndian {
+                cuisines.append("Indian")
+            }
+            
+            if isItalian {
+                cuisines.append("Italian")
+            }
+            
+            if isBiryani {
+                cuisines.append("Biryani")
+            }
+            
+            if isStreetFood {
+                cuisines.append("Street Food")
+            }
+            
+            if restaurant.ratings > ratings && (isPureVegeterian == false ? true : restaurant.facilities.contains("Pure Veg")) {
+                for cuisine in cuisines {
+                    if restaurant.cuisines.contains(cuisine) {
+                        filteredRestaurantModels.append(restaurant)
+                        break
+                    }
+                }
+                if cuisines == [] {
+                    filteredRestaurantModels.append(restaurant)
+                }
+            }
+        }
+        collectionView.reloadData()
+    }
+
     func updateImage(row: Int, imageData: Data) {
         guard let image = NSImage(data: imageData) else {
             print("Invalid image data")
             return
         }
-        self.restaurantModels[row].image = image
-        self.restaurantModels[row].image?.size = NSSize(width: 270, height: 170)
+        self.filteredRestaurantModels[row].image = image
+        self.filteredRestaurantModels[row].image?.size = NSSize(width: 270, height: 170)
         collectionView.reloadItems(at: [IndexPath(item: row, section: 0)])
     }
 }
