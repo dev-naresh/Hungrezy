@@ -288,7 +288,7 @@ extension CartView {
             return
         }
         
-        let order = Order(orderID: "", userID: presenter.getUser().id, restaurantID: restaurant?.id ?? "", foodIDs: foodIDs, quantities: quantities, cartTotal: cartTotal, gst: gst, packingFee: packingFee, deliveryFee: deliveryFee, grandTotal: grandTotal, orderDate: TimeConverter.dateToInt64(NSDate()), deliveryAddress: deliveryLocationField.stringValue, customerMobileNumber: presenter.getUser().phoneNumber)
+        let order = Order(orderID: "", userID: presenter.getUser().id, restaurantID: restaurant?.id ?? "", foodIDs: foodIDs, quantities: quantities, cartTotal: cartTotal, gst: gst, packingFee: packingFee, deliveryFee: deliveryFee, grandTotal: grandTotal, orderDate: TimeConverter.dateToInt64(NSDate()), deliveryAddress: deliveryLocationField.stringValue, customerMobileNumber: presenter.getUser().phoneNumber, orderStatus: OrderStatus.Ordered)
         
         if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
             context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Pay using Apple Pay") { [weak self] (success, error) in

@@ -44,7 +44,7 @@ class FoodListView : NSView {
         view.headerView = nil
         view.intercellSpacing = NSSize(width: 0, height: 10)
 //        view.gridStyleMask = .solidHorizontalGridLineMask
-        view.gridColor = .controlAccentColor
+//        view.gridColor = .controlAccentColor
         view.selectionHighlightStyle = .none
         view.cell?.backgroundStyle = .emphasized
         view.addTableColumn(column)

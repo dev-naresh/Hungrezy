@@ -69,4 +69,27 @@ extension RestaurantDataNetworkService  : RestaurantDataNetworkContract {
         }
         session.resume()
     }
+    
+    func fetchRestaurantInfo(restaurantID: String, success: @escaping (Restaurant) -> Void, failure: @escaping (String) -> Void) {
+        guard let url = URL(string: "https://642ffa52c26d69edc887fd53.mockapi.io/restaurant/\(restaurantID)") else {
+            print("Invalid link...")
+            return
+        }
+        let req = URLRequest(url: url)
+        let session = URLSession.shared.dataTask(with: req) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let data = data {
+                    do {
+                        let testObj = try JSONDecoder().decode(Restaurant.self, from: data)
+                        success(testObj)
+                    } catch {
+                        failure("Failed to fetch")
+                    }
+                }
+            }
+        }
+        session.resume()
+    }
 }

@@ -16,9 +16,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
 //        window.contentViewController = RestaurantCollectionItemView()
+//        window.contentView = OrdersTableCellView()
         
         router = Router(window: window)
         router?.launchAuthenticationView()
+        
+//        DispatchQueue.main.async {
+//
+//            var network = RestaurantDataNetworkService()
+//    //        network.fetchFoodInfo(restaurantID: "1", success: { (foods) in
+//    //            print(foods)
+//    //        }, failure: { (message) in
+//    //            print(message)
+//    //        })
+//
+//            var database = RestaurantDatabaseService()
+//    //        database.fetchRestaurant(restaurantID: "1", success: {(restaurant) in
+//    //            print(restaurant)
+//    //        }, failure: { (message) in
+//    //            print(message)
+//    //        })
+//
+//            var datamanager = RestaurantDataManager(database: database, network: network)
+//            datamanager.fetchRestaurantData(restaurantID: "6", success: { (restaurant) in
+//                print(restaurant)
+//            }, failure: { (error) in
+//                print(error)
+//            })
+////            sleep(5)
+//        }
         
 //        network.getImage(from: "https://cocoacasts.s3.amazonaws.com/what-is-fatalerror-in-sift-and-when-to-use-it/figure-fatalerror-swift-1.jpg", success: { (data) in
 //            print(data)

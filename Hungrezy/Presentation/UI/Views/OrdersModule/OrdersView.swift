@@ -11,7 +11,7 @@ class OrdersView: NSView {
     var presenter: OrdersViewPresenterContract
     var user: User
     
-    lazy var ordersView: OrdersListView = {
+    lazy var ordersListView: OrdersListView = {
         var view = OrdersListView()
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -33,18 +33,18 @@ class OrdersView: NSView {
         presenter.getOrdersList(user: user)
         
         NSLayoutConstraint.activate([
-            ordersView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            ordersView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            ordersView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            ordersView.trailingAnchor.constraint(equalTo: ordersDetailedView.leadingAnchor, constant: -10),
+            ordersListView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            ordersListView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            ordersListView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            ordersListView.trailingAnchor.constraint(equalTo: ordersDetailedView.leadingAnchor, constant: -10),
             
-            ordersView.widthAnchor.constraint(greaterThanOrEqualToConstant: 500),
+            ordersListView.widthAnchor.constraint(greaterThanOrEqualToConstant: 500),
             
             ordersDetailedView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             ordersDetailedView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             ordersDetailedView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
-            ordersDetailedView.widthAnchor.constraint(equalTo: ordersView.widthAnchor),
+            ordersDetailedView.widthAnchor.constraint(equalTo: ordersListView.widthAnchor),
         ])
     }
     
@@ -54,5 +54,21 @@ class OrdersView: NSView {
 }
 
 extension OrdersView : OrdersViewContract {
+    func updateRestaurantImage(index: Int, imageData: Data) {
+        guard let image = NSImage(data: imageData) else {
+            print("Invalid image data")
+            return
+        }
+        ordersListView.orderModels[index].restaurantImage = image
+        ordersListView.orderModels[index].restaurantImage?.size = NSSize(width: 110, height: 75)
+        ordersListView.tableView.reloadData(forRowIndexes: IndexSet(integer: index), columnIndexes: [0])
+    }
     
+    func updateOrdersList(orders: [Order]) {
+        ordersListView.orders = orders
+    }
+    
+    func updateRestaurantData(restaurant: Restaurant) {
+        ordersListView.restaurantData[restaurant.id] = restaurant
+    }
 }

@@ -10,4 +10,6 @@ import Foundation
 protocol OrdersViewPresenterContract: AnyObject {
     func getOrdersList(user: User)
 //    func getOrderDetails(orderID: String)
+    func addRestaurantInfo(restaurantID: String)
+    func getRestaurantImageData(index: Int, imageUrl: String)
 }

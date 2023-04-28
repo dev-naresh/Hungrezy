@@ -5,7 +5,7 @@
 //  Created by diwaan-pt5584 on 17/04/23.
 //
 
-import AppKit
+import Cocoa
 
 protocol FoodModelContract {
     var foodID: String { get }

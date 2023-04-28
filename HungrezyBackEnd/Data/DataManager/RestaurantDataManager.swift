@@ -16,6 +16,10 @@ class RestaurantDataManager {
         self.network = network
     }
     
+    deinit {
+        print("object deallocated")
+    }
+    
     private func success(restaurants: [Restaurant], callback: ([Restaurant]) -> Void) {
         callback(restaurants)
     }
@@ -48,6 +52,16 @@ class RestaurantDataManager {
         }
     }
     
+    private func failure(message: String, callback: ((FetchRestaurantDataError) -> Void)) {
+        if message == "No Data" {
+            let error = FetchRestaurantDataError(status: .networkUnavailable)
+            callback(error)
+        } else if message == "Failed to fetch data" {
+            let error = FetchRestaurantDataError(status: .authenticationFailure)
+            callback(error)
+        }
+    }
+    
     private func failure(message: String, callback: (String) -> Void) {
         callback(message)
     }
@@ -71,6 +85,25 @@ extension RestaurantDataManager : GetRestaurantListContract {
             self?.success(restaurants: restaurants, callback: success)
         }, failure: { [weak self] (message) in
             self?.failure(message: message, callback: failure)
+        })
+    }
+}
+
+extension RestaurantDataManager : FetchRestaurantDataContract {
+    func fetchRestaurantData(restaurantID: String, success: @escaping (Restaurant) -> Void, failure: @escaping (FetchRestaurantDataError) -> Void) {
+        self.database.fetchRestaurant(restaurantID: restaurantID, success: { [weak self] (restaurant) in
+            self?.success(restaurant: restaurant, callback: success)
+        }, failure: { [weak self] (message) in
+            self?.network.fetchRestaurantInfo(restaurantID: restaurantID, success: { [weak self] (restaurant) in
+//                self?.success(restaurant: restaurant, callback: success)
+                self?.database.insertIntoRestaurantTable(restaurant: restaurant, success: { [weak self] (restaurant) in
+                    self?.success(restaurant: restaurant, callback: success)
+                }, failure: { [weak self] (message) in
+                    self?.failure(message: message, callback: failure)
+                })
+            }, failure: { [weak self] (message) in
+                self?.failure(message: message, callback: failure)
+            })
         })
     }
 }

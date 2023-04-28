@@ -36,7 +36,7 @@ class OrdersDataDatabaseService {
 extension OrdersDataDatabaseService : OrdersDataDatabaseContract {
     func createOrderTable(success: @escaping (String) -> Void, failure: @escaping (String) -> Void) {
         var statement: OpaquePointer?
-        let query = "CREATE TABLE if not exists Orders ( orderID TEXT, userID TEXT, restaurantID TEXT,  foodIDs TEXT, quantities TEXT, cartTotal INTEGER, gst INTEGER, packingFee INTEGER, deliveryFee INTEGER, grandTotal INTEGER, orderDate INTEGER, deliveryAddress TEXT, customerMobileNumber INTEGER);"
+        let query = "CREATE TABLE if not exists Orders ( orderID TEXT, userID TEXT, restaurantID TEXT,  foodIDs TEXT, quantities TEXT, cartTotal INTEGER, gst INTEGER, packingFee INTEGER, deliveryFee INTEGER, grandTotal INTEGER, orderDate INTEGER, deliveryAddress TEXT, customerMobileNumber INTEGER, orderStatus TEXT);"
         if sqlite3_prepare(DB, query, -1, &statement, nil) == SQLITE_OK{
             if sqlite3_step(statement) == SQLITE_DONE{
                 success("Orders table created")
@@ -52,7 +52,7 @@ extension OrdersDataDatabaseService : OrdersDataDatabaseContract {
     func insertIntoOrderTable(order: Order, success: @escaping (Order) -> Void, failure: @escaping (String) -> Void) {
         var statement: OpaquePointer?
         let query = """
-        insert into Orders ("orderID", "userID", "restaurantID", "foodIDs", "quantities", "cartTotal", "gst", "packingFee", "deliveryFee", "grandTotal", "orderDate", "deliveryAddress", "customerMobileNumber") values("\(order.orderID)", "\(order.userID)", "\(order.restaurantID)", "\(ArrayStringConversions.stringArrayToString(order.foodIDs))", "\(ArrayStringConversions.intArrayToString(order.quantities))", "\(order.cartTotal)", "\(order.gst)", "\(order.packingFee)", "\(order.deliveryFee)", "\(order.grandTotal)", "\(order.orderDate)", "\(order.deliveryAddress)", "\(order.customerMobileNumber)");
+        insert into Orders ("orderID", "userID", "restaurantID", "foodIDs", "quantities", "cartTotal", "gst", "packingFee", "deliveryFee", "grandTotal", "orderDate", "deliveryAddress", "customerMobileNumber", "orderStatus") values("\(order.orderID)", "\(order.userID)", "\(order.restaurantID)", "\(ArrayStringConversions.stringArrayToString(order.foodIDs))", "\(ArrayStringConversions.intArrayToString(order.quantities))", "\(order.cartTotal)", "\(order.gst)", "\(order.packingFee)", "\(order.deliveryFee)", "\(order.grandTotal)", "\(order.orderDate)", "\(order.deliveryAddress)", "\(order.customerMobileNumber)", "\(order.orderStatus)");
         """
         
         if sqlite3_prepare(DB, query, -1, &statement, nil) == SQLITE_OK{
@@ -89,8 +89,9 @@ extension OrdersDataDatabaseService : OrdersDataDatabaseContract {
                 let orderDate = sqlite3_column_int64(statement, 10)
                 let deliveryAddress = String(cString: sqlite3_column_text(statement, 11))
                 let customerMobileNumber = sqlite3_column_int64(statement, 12)
+                let orderStatus = OrderStatus(rawValue: String(cString: sqlite3_column_text(statement, 13)))
                 
-                let order = Order(orderID: orderID, userID: userID, restaurantID: restaurantID, foodIDs: ArrayStringConversions.stringToStringArray(foodIDs), quantities: ArrayStringConversions.stringToIntArray(quantities), cartTotal: Int(cartTotal), gst: Int(gst), packingFee: Int(packingFee), deliveryFee: Int(deliveryFee), grandTotal: Int(grandTotal), orderDate: Int64(orderDate), deliveryAddress: deliveryAddress, customerMobileNumber: Int64(customerMobileNumber))
+                let order = Order(orderID: orderID, userID: userID, restaurantID: restaurantID, foodIDs: ArrayStringConversions.stringToStringArray(foodIDs), quantities: ArrayStringConversions.stringToIntArray(quantities), cartTotal: Int(cartTotal), gst: Int(gst), packingFee: Int(packingFee), deliveryFee: Int(deliveryFee), grandTotal: Int(grandTotal), orderDate: Int64(orderDate), deliveryAddress: deliveryAddress, customerMobileNumber: Int64(customerMobileNumber), orderStatus: orderStatus ?? OrderStatus.Ordered)
                 
                 orders.append(order)
             }

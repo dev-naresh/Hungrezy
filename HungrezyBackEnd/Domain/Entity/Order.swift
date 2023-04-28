@@ -21,4 +21,5 @@ struct Order: Codable, Hashable {
     var orderDate: Int64
     var deliveryAddress: String
     var customerMobileNumber: Int64
+    var orderStatus: OrderStatus
 }

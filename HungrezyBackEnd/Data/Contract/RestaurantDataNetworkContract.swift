@@ -10,4 +10,5 @@ import Foundation
 protocol RestaurantDataNetworkContract {
     func addRestaurant(restaurant: Restaurant, success: @escaping (Restaurant) -> Void, failure: @escaping (String) -> Void)
     func fetchRestaurantInfo(city: Location, success: @escaping ([Restaurant]) -> Void, failure: @escaping (String) -> Void)
+    func fetchRestaurantInfo(restaurantID: String, success: @escaping (Restaurant) -> Void, failure: @escaping (String) -> Void)
 }

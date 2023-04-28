@@ -8,5 +8,7 @@
 import Foundation
 
 protocol OrdersViewContract: AnyObject {
-    
+    func updateOrdersList(orders: [Order])
+    func updateRestaurantData(restaurant: Restaurant)
+    func updateRestaurantImage(index: Int, imageData: Data)
 }

@@ -94,7 +94,9 @@ class Assembler {
 //        return view
         
         let fetchUserOrders = getFetchUserOrdersUseCase()
-        let presenter = OrdersViewPresenter(fetchUserOrders: fetchUserOrders)
+        let fetchRestaurantData = getFetchRestaurantDataUseCase()
+        let getImage = getGetImageUseCase()
+        let presenter = OrdersViewPresenter(fetchUserOrders: fetchUserOrders, fetchRestaurantData: fetchRestaurantData, getImage: getImage)
         let view = OrdersView(user: user, presenter: presenter)
         presenter.router = router
         presenter.view = view
@@ -107,6 +109,14 @@ class Assembler {
         let network = OrdersDataNetworkService()
         let dataManager = OrdersDataManager(database: database, network: network)
         let useCase = FetchUserOrders(dataManager: dataManager)
+        return useCase
+    }
+    
+    private static func getFetchRestaurantDataUseCase() -> FetchRestaurantData {
+        let database = RestaurantDatabaseService()
+        let network = RestaurantDataNetworkService()
+        let dataManager = RestaurantDataManager(database: database, network: network)
+        let useCase = FetchRestaurantData(dataManager: dataManager)
         return useCase
     }
     

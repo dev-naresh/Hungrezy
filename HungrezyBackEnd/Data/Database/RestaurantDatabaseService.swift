@@ -129,4 +129,53 @@ extension RestaurantDatabaseService : RestaurantDataDatabaseContract {
         sqlite3_finalize(statement)
     }
     
+    func fetchRestaurant(restaurantID: String, success: @escaping (Restaurant) -> Void, failure: @escaping (String) -> Void) {
+        var statement: OpaquePointer?
+        let query = "select * from Restaurants where id=\(restaurantID);"
+        print(query)
+        DispatchQueue.main.async {
+            if sqlite3_prepare(self.DB, query, -1, &statement, nil) == SQLITE_OK{
+                if sqlite3_step(statement) == SQLITE_ROW {
+                    let id = String(cString: sqlite3_column_text(statement, 0))
+                    let name = String(cString: sqlite3_column_text(statement, 1))
+                    let address = String(cString: sqlite3_column_text(statement, 2))
+                    let latitude = sqlite3_column_double(statement, 4)
+                    let longitude = sqlite3_column_double(statement, 5)
+                    let pinCode = sqlite3_column_int(statement, 6)
+                    let locality = String(cString: sqlite3_column_text(statement, 7))
+                    let openTime = sqlite3_column_int(statement, 8)
+                    let closeTime = sqlite3_column_int(statement, 9)
+                    let facilities = String(cString: sqlite3_column_text(statement, 10))
+                    let cuisines = String(cString: sqlite3_column_text(statement, 11))
+                    let averageCost = sqlite3_column_int(statement, 12)
+                    let ratings = sqlite3_column_double(statement, 13)
+                    let contactNumber = sqlite3_column_int(statement, 14)
+                    let diningType = sqlite3_column_int(statement, 15)
+                    let imageURL = String(cString: sqlite3_column_text(statement, 16))
+                    
+                    var city: Location
+                    switch String(cString: sqlite3_column_text(statement, 3)) {
+                    case "Chennai":
+                        city = Location.Chennai
+                    case "Coimbatore":
+                        city = Location.Coimbatore
+                    case "Bangalore":
+                        city = Location.Bangalore
+                    default:
+                        city = Location.Chennai
+                    }
+
+                    let restaurant = Restaurant(id: id, name: name, address: address, city: city, latitude: latitude, longitude: longitude, pinCode: pinCode, locality: locality, openTime: openTime, closeTime: closeTime, facilities: facilities, cuisines: cuisines, averageCost: averageCost, ratings: Float(ratings), contactNumber: Int64(contactNumber), diningType: DiningType(rawValue: Int(diningType)) ?? DiningType.DineOut, imageURL: imageURL)
+                    success(restaurant)
+                } else {
+                    failure("No Data")
+                }
+                
+            } else {
+                failure("Failed to fetch data")
+            }
+            sqlite3_finalize(statement)
+        }
+    }
+    
 }
